@@ -22,13 +22,35 @@ export const Links : LinkProps= [
         to: "/card-product",
         children: [
             {
-                name: "Create Card Products",
+                name: "Create Card Product",
                 to: "/card-product/create-card-product",
                 icon: <AddCardIcon />,
             },
             {
                 name: "View Card Products",
                 to: "/card-product/view-card-products",
+                icon: <PreviewIcon />,
+            },
+        ],
+    },
+    {
+        label: "User Role Management",
+        icon: <CreditCardIcon />,
+        to: "/user-role-management",
+        children: [
+            {
+                name: "Users",
+                to: "/user-role-management/users",
+                icon: <AddCardIcon />,
+            },
+            {
+                name: "Roles",
+                to: "/user-role-management/roles",
+                icon: <PreviewIcon />,
+            },
+             {
+                name: "User Group",
+                to: "/user-role-management/user-group",
                 icon: <PreviewIcon />,
             },
         ],

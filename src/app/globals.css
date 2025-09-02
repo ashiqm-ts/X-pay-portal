@@ -1,9 +1,6 @@
- @import "tailwindcss";  
-/* @tailwind base;
-@tailwind components;
-@tailwind utilities; */
+@import 'tailwindcss';
 
-*{
+* {
   padding: 0;
   margin: 0;
 }
@@ -11,15 +8,17 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  /* --color-primary: #2A4947;
+  --color-primary: #2A4947;
   --color-secondary: #538890;
-  --color-accent: #E6F1EB; */
+  --color-accent: #E6f1EB;
+  --color-yellow:#A89C34;
+  --color-red:#dd8452;
 }
-@theme{
+/* @theme{
   --color-primary: #2A4947;
   --color-secondary: #538890;
   --color-accent: #E6F1EB;
-}
+} */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -43,12 +42,18 @@ body {
   font-family:  sans-serif;
   border:5px solid red;
 } */
-.custom-header-center .ag-header-cell-label{
+.custom-header-center .ag-header-cell-label {
   justify-content: center;
-  font-size: 14px;
-  color: #2A4947;
+  font-size: 13px;
+  color: var(--color-primary);
+  /* white-space: normal !important;
+  text-overflow: unset !important;
+  overflow: visible !important; */
 }
-.ag-cell{
+.ag-cell {
   font-family: inherit;
   font-size: 13px;
+}
+.ag-row {
+    border-bottom: 1px solid #9BBCC1; /* or your desired border */
 }

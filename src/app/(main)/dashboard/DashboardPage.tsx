@@ -1,7 +1,7 @@
 'use client';
 import CardComponent from "@/components/shared-ui/CardDashboard";
 import { Box, Grid, Typography } from "@mui/material";
-// import Chart from "react-apexcharts";
+import Chart from "react-apexcharts";
 
 const cardBoxStyle = {
   backgroundColor: 'var(--color-accent)',
@@ -62,14 +62,9 @@ export default function DashboardPage() {
       </CardComponent>
 
       <Grid container spacing={2} justifyContent="center">
-        <Grid size={3}>
+        <Grid size={4}>
           <CardComponent sx={{ height: "300px" }}>
-            {/* <Chart
-    options={options}
-    series={series}
-    type="line"
-    width="500"
-  /> */}
+            <Chart options={options} series={series} type="line" width="500"/>
           </CardComponent>
         </Grid>
         <Grid size={3}>
@@ -80,12 +75,11 @@ export default function DashboardPage() {
           <CardComponent sx={{ height: "300px" }}>
           </CardComponent>
         </Grid>
-        <Grid size={2}>
+        <Grid size={1}>
           <CardComponent sx={{ height: "300px" }}>
           </CardComponent>
         </Grid>
       </Grid>
-
     </Box>
   );
 }

@@ -48,13 +48,13 @@ const Password = ({
       type="text"
       helperText={<ErrorMessage name={name} />}
       error={Boolean(errors[name] && touched[name])}
-      InputLabelProps={{sx: {color: '#538890',} }}
+      InputLabelProps={{sx: {color: 'var(--color-secondary)',} }}
       inputProps={{ style: { WebkitTextSecurity: showPassword ? "none" : "disc" } }}
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">
             <IconButton onClick={() => setShowPassword?.(!showPassword)} edge="end">
-              {showPassword ? <VisibilityIcon sx={{ color: '#538890' }}/> : <VisibilityOffIcon sx={{ color: '#538890' }}/>}
+              {showPassword ? <VisibilityIcon sx={{ color: 'var(--color-secondary)' }}/> : <VisibilityOffIcon sx={{ color: 'var(--color-secondary)' }}/>}
             </IconButton>
           </InputAdornment>
         ),

@@ -6,7 +6,7 @@ ModuleRegistry.registerModules([AllCommunityModule]);
 
 const myTheme = themeBalham.withParams({
     // spacing: 12,
-    accentColor: '#538890',
+    accentColor: 'var(--color-secondary)',
     // headerTextColor: '#2A4947',
     headerBackgroundColor: '#9BBCC1',
     headerRowBorder: true,
@@ -16,7 +16,7 @@ const myTheme = themeBalham.withParams({
 
 const AgGrid: React.FC<any> = (props) => {
     const containerStyle = useMemo(() => ({ width: "100%", height: "100%" }), []);
-    const gridStyle = useMemo(() => ({ height: "100%", width: "100%", marginTop: "6px", className: "border border-[#538890] rounded-md" }), []);
+    const gridStyle = useMemo(() => ({ height: "100%", width: "100%", marginTop: "6px", className: "border border-[var(--color-secondary)] rounded-md" }), []);
     const defaultColDef = {
         // filter: true,
         resizable: true,
@@ -36,6 +36,16 @@ const AgGrid: React.FC<any> = (props) => {
             };
         },
     }
+    
+    const onGridReady = (params:any) => {
+    // Auto-size all columns
+    const allColumnIds:any = [];
+    params.columnApi.getAllColumns().forEach((column:any) => {
+      allColumnIds.push(column.getColId());
+    });
+    params.columnApi.autoSizeColumns(allColumnIds, false);
+  };
+
     const theme = useMemo<Theme | "legacy">(() => {
         return myTheme;
     }, []);
@@ -57,6 +67,19 @@ const AgGrid: React.FC<any> = (props) => {
             defaultMinWidth: 100,
         };
     }, []);
+
+//     const autoSizeAll = useCallback((skipHeader: boolean) => {
+//     const colIds: string[] = [];
+//     gridRef.current!.api.getColumns()!.forEach((column) => {
+//       colIds.push(column.getId());
+//     });
+//     gridRef.current!.api.autoSizeColumns({
+//       colIds,
+//       skipHeader,
+//       defaultMaxWidth: 150,
+//       defaultMinWidth: 80,
+//     });
+//   }, []);
     const onFilterTextChanged = useCallback(() => {
         gridRef.current!.api.setGridOption(
             "quickFilterText",
@@ -66,9 +89,9 @@ const AgGrid: React.FC<any> = (props) => {
     return (
         <div style={containerStyle}>
             <div className="flex justify-end text-right gap-2">
-                <span className="text-[#538890] text-[14px]">Search all Columns</span>
+                <span className="text-[#538890] text-[14px]">Quick Search</span>
                 <input type="text" placeholder="Search...." id="filter-text-box" onInput={onFilterTextChanged}
-                    className="border border-[#538890] text-[14px] focus:outline-none focus:border-[#538890] hover:border-[#538890]" />
+                    className="border border-[var(--color-secondary)] text-[14px] focus:outline-none focus:border-[var(--color-secondary)] hover:border-[var(--color-secondary)]" />
             </div>
             <div style={gridStyle}>
                 <AgGridReact
@@ -79,10 +102,13 @@ const AgGrid: React.FC<any> = (props) => {
                     paginationPageSizeSelector={paginationPageSizeSelector}
                     theme={theme}
                     rowHeight={35}
-                    headerHeight={50}
+                    headerHeight={35}
                     domLayout="autoHeight"
                     autoSizeStrategy={autoSizeStrategy}
                     overlayNoRowsTemplate="No Rows To Show"
+                    suppressDragLeaveHidesColumns
+                    // onGridReady={onGridReady}
+                    suppressSizeToFit
                     {...props}
                 />
             </div>

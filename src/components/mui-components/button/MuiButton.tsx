@@ -1,24 +1,23 @@
 import BasicCancelBtn from "@/components/mui-components/button/components/BasicCancelBtn";
-import BasicSubmitBtn from "@/components/mui-components/button/components/BasicSubmitBtn";
 import IconBtn from "@/components/mui-components/button/components/IconBtn";
 import SubmitBtn from "@/components/mui-components/button/components/SubmitBtn";
-
+import BasicBtn from "@/components/mui-components/button/components/BasicBtn";
 
 const MuiButton = (props: any) => {
   const { type, onClick, disabled, children, className, variant, size, isNoDirty, disableIsSubmit, sx, component } = props;
   console.log('disabled', disabled);
   switch (type) {
+    case 'basic-btn':
+      return (
+        <BasicBtn disabled={disabled} className={className} variant={variant} size={size} sx={sx} component={component}>
+          {children}
+        </BasicBtn>
+      );
     case 'submit':
       return (
-        <SubmitBtn disabled={disabled} isNoDirty={isNoDirty} className={className} variant={variant} size={size} disableIsSubmit={disableIsSubmit} sx={sx} component={component}>
+        <SubmitBtn disabled={disabled}  className={className} variant={variant} size={size} disableIsSubmit={disableIsSubmit} sx={sx} component={component}>
           {children}
         </SubmitBtn>
-      );
-    case 'basicSubmit':
-      return (
-        <BasicSubmitBtn onClick={onClick} disabled={disabled} className={className} variant={variant} size={size}>
-          {children}
-        </BasicSubmitBtn>
       );
     case 'cancel-btn':
       return (

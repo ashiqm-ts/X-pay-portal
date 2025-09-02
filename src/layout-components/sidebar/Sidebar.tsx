@@ -19,8 +19,8 @@ export default function Sidebar() {
     // pl: 2,
     ml: 1,
     "&.Mui-selected": {
-      backgroundColor: "#538890",
-      color: "#FFF",
+      backgroundColor: "var(--color-secondary)",
+      color: "var(--background)",
       // borderTopLeftRadius: 0,
       // borderBottomLeftRadius: 0,
       // borderTopRightRadius: 0,
@@ -28,16 +28,14 @@ export default function Sidebar() {
     },
 
     "&.Mui-selected:hover": {
-      backgroundColor: "#E6F1EB",
+      backgroundColor: "var(--color-accent)",
     },
   };
 
   return (
-    <aside className="left-0 top-0 h-screen bg-[#FFFFFF] text-[#538890]">
+    <aside className="left-0 top-0 h-screen bg-[#FFFFFF] text-var(--color-secondary)">
       <img src="/logo.png" alt="logo" width="140px" height="64px" style={{ objectFit: 'contain', margin: "auto", padding: "0 25px" }} />
       <Box className="flex flex-col justify-center items-center">
-        <Typography sx={{ fontSize: "16px", fontWeight: "bold", color: "#2A4947" }}>User Name</Typography>
-        <Typography sx={{ fontSize: "12px" }}>user@techswing.com</Typography>
       </Box>
       <List component="nav">
         {Links.map((item) => {

@@ -8,7 +8,7 @@ const PILL_WIDTH = 75;
 const PILL_HEIGHT = 28;
 const INNER_MARGIN = 2;
 const ACTIVE_BG = 'white';
-const OUTER_BG = '#2A4947';
+const OUTER_BG = 'var(--color-primary)';
 const MODES = ['light', 'dark'];
  
 export default function Pill() {
