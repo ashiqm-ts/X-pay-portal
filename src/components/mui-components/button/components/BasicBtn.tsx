@@ -2,7 +2,7 @@ import { Button } from '@mui/material';
 import { useFormikContext } from 'formik';
 import { useEffect, useState } from 'react';
 
-const BasicBtn = ({ children, disabled, variant = 'contained', size = 'small', sx, component, startIcon,...rest }: any) => {
+const BasicBtn = ({ children, disabled, variant = 'contained',onClick, size = 'small', sx, component, startIcon,...rest }: any) => {
   // const { isSubmitting, setSubmitting } = useFormikContext();
   // const [isDisabled, setIsDisabled] = useState(false);
 
@@ -30,7 +30,7 @@ const BasicBtn = ({ children, disabled, variant = 'contained', size = 'small', s
       variant={variant}
       size={size}
       // disabled={isDisabled} 
-      // onClick={handleClick}
+      onClick={onClick}
       sx={{
         textTransform: 'none',
         backgroundColor: 'var(--color-secondary)',

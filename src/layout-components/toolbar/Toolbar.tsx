@@ -4,6 +4,7 @@ import { AppBar, Box, IconButton, Toolbar, Typography } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
 import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
 import Pill from '@/layout-components/toolbar/Pill';
+import Notification from '@/layout-components/toolbar/Notification';
 
 export default function ToolBar() {
   const handleLogout = () => {
@@ -18,7 +19,8 @@ export default function ToolBar() {
         <Box className="flex justify-end items-center">
           {/* <Pill /> */}
           <IconButton disableRipple>
-            <NotificationsOutlinedIcon sx={{ color: 'var(--color-primary)', width: '30px', height: '30px' }} />
+            <Notification/>
+            {/* <NotificationsOutlinedIcon sx={{ color: 'var(--color-primary)', width: '30px', height: '30px' }} /> */}
           </IconButton>
           <IconButton disableRipple onClick={handleLogout}>
             <LogoutIcon sx={{ color: 'var(--color-primary)' }} />

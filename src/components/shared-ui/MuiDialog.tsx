@@ -1,4 +1,4 @@
-import { Button } from '@mui/material';
+
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -13,6 +13,8 @@ type DialogType = {
     open: boolean;
     onClose: () => void;
     width: string;
+    children:React.ReactNode;
+    dialogTitle?:string;
 }
 function PaperComponent(props: PaperProps) {
     const nodeRef = useRef<HTMLDivElement>(null);
@@ -27,7 +29,7 @@ function PaperComponent(props: PaperProps) {
     );
 }
 
-const MuiDialog: React.FC<DialogType> = ({ open, onClose,width }) => {
+const MuiDialog: React.FC<DialogType> = ({ open, onClose,width,children,dialogTitle }) => {
     return (
         <>
             <Dialog open={open}
@@ -44,11 +46,12 @@ const MuiDialog: React.FC<DialogType> = ({ open, onClose,width }) => {
                         },
                     },
                 }}>
-                <DialogTitle style={{ cursor: 'pointer' }} id="draggable-dialog-title">Draggable</DialogTitle>
+                <DialogTitle sx={{ cursor: 'pointer', fontSize: '16px', color: 'var(--color-primary)', fontWeight: 'bold',marginTop:"10px" }} id="draggable-dialog-title">{dialogTitle}</DialogTitle>
                 <DialogContent>
                     {/* <DialogContentText>World</DialogContentText> */}
+                    {children}
                 </DialogContent>
-                <DialogActions>
+                <DialogActions sx={{marginRight:"14px",marginBottom:"14px"}}>
                     <MuiButton type="cancel-btn" onClick={onClose}>Cancel</MuiButton>
                     <MuiButton type="submit">Submit</MuiButton>
                 </DialogActions>

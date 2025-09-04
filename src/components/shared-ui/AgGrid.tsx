@@ -15,6 +15,7 @@ const myTheme = themeBalham.withParams({
 });
 
 const AgGrid: React.FC<any> = (props) => {
+    const {leftActionButton}=props;
     const containerStyle = useMemo(() => ({ width: "100%", height: "100%" }), []);
     const gridStyle = useMemo(() => ({ height: "100%", width: "100%", marginTop: "6px", className: "border border-[var(--color-secondary)] rounded-md" }), []);
     const defaultColDef = {
@@ -25,7 +26,7 @@ const AgGrid: React.FC<any> = (props) => {
         minWidth: 100,
         maxWidth: 800,
         flex: 1,
-        headerStyle: { fontSize: '14px' },
+        headerStyle: { fontSize: '12px' },
         headerClass: 'custom-header-center',
         // cellStyle: { textAlign: "left", paddingTop: "5px" }
         cellStyle: (params: any) => {
@@ -36,15 +37,6 @@ const AgGrid: React.FC<any> = (props) => {
             };
         },
     }
-    
-    const onGridReady = (params:any) => {
-    // Auto-size all columns
-    const allColumnIds:any = [];
-    params.columnApi.getAllColumns().forEach((column:any) => {
-      allColumnIds.push(column.getColId());
-    });
-    params.columnApi.autoSizeColumns(allColumnIds, false);
-  };
 
     const theme = useMemo<Theme | "legacy">(() => {
         return myTheme;
@@ -88,10 +80,13 @@ const AgGrid: React.FC<any> = (props) => {
     }, []);
     return (
         <div style={containerStyle}>
+            <div className="flex justify-between items-center">
+                {leftActionButton ?? <div/>}
             <div className="flex justify-end text-right gap-2">
                 <span className="text-[#538890] text-[14px]">Quick Search</span>
                 <input type="text" placeholder="Search...." id="filter-text-box" onInput={onFilterTextChanged}
                     className="border border-[var(--color-secondary)] text-[14px] focus:outline-none focus:border-[var(--color-secondary)] hover:border-[var(--color-secondary)]" />
+            </div>
             </div>
             <div style={gridStyle}>
                 <AgGridReact
@@ -107,7 +102,6 @@ const AgGrid: React.FC<any> = (props) => {
                     autoSizeStrategy={autoSizeStrategy}
                     overlayNoRowsTemplate="No Rows To Show"
                     suppressDragLeaveHidesColumns
-                    // onGridReady={onGridReady}
                     suppressSizeToFit
                     {...props}
                 />

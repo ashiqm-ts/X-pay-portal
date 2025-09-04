@@ -1,14 +1,15 @@
 "use client";
-import BasicBtn from "@/components/mui-components/button/components/BasicBtn";
 import AgGrid from "@/components/shared-ui/AgGrid";
 import CardComponent from "@/components/shared-ui/CardAgGrid";
-import { Box, IconButton } from "@mui/material";
+import { Box, Grid, IconButton } from "@mui/material";
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import { useState } from "react";
 import type { ICellRendererParams } from 'ag-grid-community';
 import MuiDialog from "@/components/shared-ui/MuiDialog";
 import MuiButton from "@/components/mui-components/button/MuiButton";
+import { Formik } from "formik";
+import FormikController from "@/components/mui-components/formik-controller/FormikController";
 
 const ActionRenderer = (params: ICellRendererParams & { onEdit: (data: any) => void; onDelete: (data: any) => void }) => {
   const { data, onEdit, onDelete } = params;
@@ -38,7 +39,7 @@ export default function UserPage() {
     { roleName: "User", loginUsername: "John Smith", userId: 64956, email: "john.smith@gmail.com", userStatusId: 64950, createdDatetime: "March 12,2023", lastUpdatedDatetime: "March 12,2025" },
     { roleName: "Guest", loginUsername: "John Smith", userId: 64957, email: "john.smith@gmail.com", userStatusId: 64950, createdDatetime: "March 12,2023", lastUpdatedDatetime: "March 12,2025" },
     { roleName: "Moderator", loginUsername: "John Smith", userId: 64958, email: "john.smith@gmail.com", userStatusId: 64950, createdDatetime: "March 12,2023", lastUpdatedDatetime: "March 12,2025" },
-   { roleName: "Admin", loginUsername: "John Smith", userId: 64959, email: "john.smith@gmail.com", userStatusId: 64950, createdDatetime: "August 5,2021", lastUpdatedDatetime: "March 21,2025" },
+    { roleName: "Admin", loginUsername: "John Smith", userId: 64959, email: "john.smith@gmail.com", userStatusId: 64950, createdDatetime: "August 5,2021", lastUpdatedDatetime: "March 21,2025" },
     { roleName: "User", loginUsername: "Daniel Smith", userId: 64962, email: "john.smith@gmail.com", userStatusId: 64950, createdDatetime: "March 12,2023", lastUpdatedDatetime: "March 12,2025" },]);
 
   const handleEdit = (row: any) => {
@@ -61,7 +62,7 @@ export default function UserPage() {
       field: 'email',
       headerName: 'Email',
       minWidth: 180,
-    
+
     },
     {
       field: 'roleName',
@@ -94,23 +95,99 @@ export default function UserPage() {
     },
   ];
 
-  const handleAdd = (action: any) => {
-    console.log(`${action} executed`);
+  const handleAdd = () => {
+    setPageControl((prev) => ({ ...prev, isEdit: false, isOpen: true }));
+  }
+  const initialValues = {
+
+  }
+  const handleSubmit = () => {
+
   }
   return (
     <Box>
       <CardComponent>
-        <MuiButton type="basic-btn" sx={{ marginBottom: "-40px" }} onClick={() => handleAdd("Add")}>ADD</MuiButton>
-        <AgGrid rowData={rowData} columnDefs={columnDefs} />
+        {/* <MuiButton type="basic-btn" sx={{ marginBottom: "-40px" }} onClick={() => handleAdd("Add")}>ADD</MuiButton> */}
+        <AgGrid rowData={rowData} columnDefs={columnDefs} leftActionButton={
+          <MuiButton type="basic-btn" onClick={handleAdd}>ADD</MuiButton>} />
       </CardComponent>
       {pageControl.isOpen && (
         <>
-          <MuiDialog
-            open={pageControl.isOpen}
-            onClose={() => setPageControl(prev => ({ ...prev, isOpen: false }))}
-            width="500px">
-          </MuiDialog>
-
+          <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+            <MuiDialog
+              open={pageControl.isOpen}
+              onClose={() => setPageControl(prev => ({ ...prev, isOpen: false }))}
+              width="700px"
+              dialogTitle={pageControl.isEdit ? "Edit User" : "Add User"}
+              >   
+              <Grid container spacing={3} justifyContent="center">
+                <Grid size={{ xs: 6 }}>
+                  <FormikController
+                    control="textField"
+                    label="User Name"
+                    name="userName"
+                    required
+                  />
+                </Grid>
+                <Grid size={{ xs: 6 }}>
+                  <FormikController
+                    control="textField"
+                    label="User Name"
+                    name="userName"
+                    required
+                  />
+                </Grid>
+                <Grid size={{ xs: 6 }}>
+                  <FormikController
+                    control="textField"
+                    label="User Name"
+                    name="userName"
+                    required
+                  />
+                </Grid>
+                <Grid size={{ xs: 6 }}>
+                  <FormikController
+                    control="textField"
+                    label="User Name"
+                    name="userName"
+                    required
+                  />
+                </Grid>
+                <Grid size={{ xs: 6 }}>
+                  <FormikController
+                    control="textField"
+                    label="User Name"
+                    name="userName"
+                    required
+                  />
+                </Grid>
+                <Grid size={{ xs: 6 }}>
+                  <FormikController
+                    control="textField"
+                    label="User Name"
+                    name="userName"
+                    required
+                  />
+                </Grid>
+                <Grid size={{ xs: 6 }}>
+                  <FormikController
+                    control="textField"
+                    label="User Name"
+                    name="userName"
+                    required
+                  />
+                </Grid>
+                <Grid size={{ xs: 6 }}>
+                  <FormikController
+                    control="textField"
+                    label="User Name"
+                    name="userName"
+                    required
+                  />
+                </Grid>
+              </Grid>
+            </MuiDialog>
+          </Formik>
         </>
       )}
     </Box>
