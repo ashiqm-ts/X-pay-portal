@@ -1,37 +1,51 @@
-/* eslint-disable react/jsx-props-no-spreading */
-import { FormLabel, Switch } from "@mui/material";
-import { Field } from "formik";
+'use client';
 
-type MuiAutoCompleteProps = {
+import { Switch, FormHelperText, Box, Typography } from '@mui/material';
+import { useField } from 'formik';
+
+type MuiSwitchProps = {
   name: string;
   label: string;
-  required?: boolean;
   disabled?: boolean;
-  onChange?: (event: { target: { name: string; value: any } }) => void;
-  errors: Record<string, any>;
-  touched: Record<string, boolean | undefined>;
+  required?: boolean;
+  onChange?: (event: { target: { name: string; value: boolean } }) => void;
 };
-const MuiSwitch = ({
-  name,
-  errors,
-  touched,
-  label,
-  disabled,
-  onChange,
-}: MuiAutoCompleteProps) => {
+
+const MuiSwitch: React.FC<MuiSwitchProps> = ({ name, label, disabled, required, onChange }) => {
+  const [field, meta, helpers] = useField({ name, type: 'checkbox' });
+
   return (
-    <div>
-      <FormLabel>{label}</FormLabel>
-      <Field
-        as={Switch}
-        name={name}
-        variant="standard"
-        onChange={onChange}
-        disabled={disabled}
-        errors={errors}
-        touched={touched}
-      />
-    </div>
+    <Box mt={2}>
+      <Box display="flex" alignItems="center" justifyContent="space-between">
+        <Typography fontWeight={500} sx={{ fontFamily: 'Arial, Helvetica, sans-serif' }}>
+          {label}
+          {required ? ' *' : ''}
+        </Typography>
+
+        <Switch
+          {...field}
+          checked={Boolean(field.value)}
+          sx={{
+            '& .MuiSwitch-switchBase.Mui-checked': {
+              color: 'var(--color-secondary)',
+            },
+            '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
+              backgroundColor: 'var(--color-secondary)',
+            },
+            '& .MuiSwitch-track': {
+              backgroundColor: '#ccc',
+            },
+          }}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            helpers.setValue(e.target.checked);
+            if (onChange) onChange({ target: { name, value: e.target.checked } });
+          }}
+          disabled={disabled}
+        />
+      </Box>
+
+      {meta.touched && meta.error && <FormHelperText error>{meta.error}</FormHelperText>}
+    </Box>
   );
 };
 

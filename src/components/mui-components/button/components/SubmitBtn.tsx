@@ -14,14 +14,7 @@ type SubmitBtnProps = {
   component?: any;
 };
 
-const SubmitBtn: React.FC<SubmitBtnProps> = ({
-  disabled,
-  children,
-  isNoDirty,
-  size = 'small',
-  variant = 'contained',
-  sx,
-}) => {
+const SubmitBtn: React.FC<SubmitBtnProps> = ({ disabled, children, isNoDirty, size = 'small', variant = 'contained', sx }) => {
   const [isDisabled, setIsDisabled] = useState(false);
   // const { dirty, isSubmitting } = useFormikContext();
 
@@ -30,19 +23,24 @@ const SubmitBtn: React.FC<SubmitBtnProps> = ({
   // }, [isSubmitting, disabled]);
 
   return (
-    <Button variant={variant} size={size} type="submit" sx={{
-      textTransform: 'none',
-      backgroundColor: 'var(--color-secondary)',
-      color: 'white',
-      '&:hover': {
-        backgroundColor: 'var(--color-accent)',
-        color: 'var(--color-primary)',
-      },
-      '&:disabled': {
-        backgroundColor: 'var(--color-accent)',
-      },
-      ...sx,
-    }} disabled={isDisabled}
+    <Button
+      variant={variant}
+      size={size}
+      type="submit"
+      sx={{
+        textTransform: 'none',
+        backgroundColor: 'var(--color-secondary)',
+        color: 'white',
+        '&:hover': {
+          backgroundColor: 'var(--color-accent)',
+          color: 'var(--color-primary)',
+        },
+        '&:disabled': {
+          backgroundColor: 'var(--color-accent)',
+        },
+        ...sx,
+      }}
+      disabled={isDisabled}
     >
       {children}
     </Button>

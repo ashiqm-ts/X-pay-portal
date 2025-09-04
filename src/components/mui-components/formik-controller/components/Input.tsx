@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { TextField } from "@mui/material";
-import { Field, ErrorMessage } from "formik";
+import { TextField } from '@mui/material';
+import { Field, ErrorMessage } from 'formik';
 
 /** Input
  * Mui TextField component
@@ -16,17 +16,7 @@ type MuiAutoCompleteProps = {
   fullWidth?: boolean;
   required?: boolean;
 };
-const Input = ({
-  name,
-  label,
-  errors,
-  touched,
-  disabled,
-  required,
-  onChange,
-  fullWidth = true,
-  ...rest
-}: MuiAutoCompleteProps) => {
+const Input = ({ name, label, errors, touched, disabled, required, onChange, fullWidth = true, ...rest }: MuiAutoCompleteProps) => {
   return (
     <Field
       as={TextField}
@@ -38,8 +28,8 @@ const Input = ({
       // onChange={onChange}
       autoComplete="off"
       variant="standard"
-      InputLabelProps={{sx: {color: '#538890',} }}
-      // InputProps={{ sx: { color: '#538890', fontSize: '14px' } }}    
+      InputLabelProps={{ sx: { color: '#538890' } }}
+      // InputProps={{ sx: { color: '#538890', fontSize: '14px' } }}
       helperText={<ErrorMessage name={name} />}
       error={Boolean(errors[name] && touched[name])}
       {...rest}
