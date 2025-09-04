@@ -30,17 +30,17 @@ export default function CreateCardProduct() {
                       type="button"
                       variant="contained"
                       color="primary"
-                      // onClick={() =>
-                      //   push({
-                      //     productCode: '',
-                      //     destination: '',
-                      //     stepOrder: '',
-                      //     externalSystemCode: '',
-                      //     targetModule: '',
-                      //     declineOnFailure: false,
-                      //     isOptional: false,
-                      //   })
-                      // }
+                      onClick={() =>
+                        push({
+                          productCode: '',
+                          destination: '',
+                          stepOrder: '',
+                          externalSystemCode: '',
+                          targetModule: '',
+                          declineOnFailure: false,
+                          isOptional: false,
+                        })
+                      }
                     >
                       Add
                     </Button>

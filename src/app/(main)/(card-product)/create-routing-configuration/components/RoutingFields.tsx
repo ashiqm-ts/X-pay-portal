@@ -5,15 +5,13 @@ import { Box, IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CloseIcon from '@mui/icons-material/Close';
 
-
 const RoutingFields = ({ form, remove }: { form: any; remove: any }) => {
   return (
     <Box>
       {form.values.routingConfig?.map((_: any, index: number) => (
         <Box key={index} mb={2} p={2} border={1} borderRadius={2} borderColor="grey.300" position="relative" overflow="visible">
           <IconButton
-             
-            // onClick={() => remove(index)}
+            onClick={() => remove(index)}
             size="small"
             sx={{
               position: 'absolute',
