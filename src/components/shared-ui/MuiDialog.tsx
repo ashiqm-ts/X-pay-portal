@@ -1,4 +1,4 @@
-import { Button } from '@mui/material';
+
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -10,10 +10,12 @@ import { useRef } from 'react';
 import MuiButton from '@/components/mui-components/button/MuiButton';
 
 type DialogType = {
-  open: boolean;
-  onClose: () => void;
-  width: string;
-};
+    open: boolean;
+    onClose: () => void;
+    width: string;
+    children:React.ReactNode;
+    dialogTitle?:string;
+}
 function PaperComponent(props: PaperProps) {
   const nodeRef = useRef<HTMLDivElement>(null);
   return (
@@ -23,37 +25,35 @@ function PaperComponent(props: PaperProps) {
   );
 }
 
-const MuiDialog: React.FC<DialogType> = ({ open, onClose, width }) => {
-  return (
-    <>
-      <Dialog
-        open={open}
-        onClose={onClose}
-        PaperComponent={PaperComponent}
-        sx={{
-          '& .MuiDialog-container': {
-            '& .MuiPaper-root': {
-              width: '100%',
-              maxWidth: width,
-              minWidth: '500px',
-              borderRadius: '15px',
-              zIndex: '1',
-            },
-          },
-        }}
-      >
-        <DialogTitle style={{ cursor: 'pointer' }} id="draggable-dialog-title">
-          Draggable
-        </DialogTitle>
-        <DialogContent>{/* <DialogContentText>World</DialogContentText> */}</DialogContent>
-        <DialogActions>
-          <MuiButton type="cancel-btn" onClick={onClose}>
-            Cancel
-          </MuiButton>
-          <MuiButton type="submit">Submit</MuiButton>
-        </DialogActions>
-      </Dialog>
-    </>
-  );
-};
+const MuiDialog: React.FC<DialogType> = ({ open, onClose,width,children,dialogTitle }) => {
+    return (
+        <>
+            <Dialog open={open}
+                onClose={onClose}
+                PaperComponent={PaperComponent}
+                sx={{
+                    '& .MuiDialog-container': {
+                        '& .MuiPaper-root': {
+                            width: '100%',
+                            maxWidth: width,
+                            minWidth: '500px',
+                            borderRadius: '15px',
+                            zIndex: '1',
+                        },
+                    },
+                }}>
+                <DialogTitle sx={{ cursor: 'pointer', fontSize: '16px', color: 'var(--color-primary)', fontWeight: 'bold',marginTop:"10px" }} id="draggable-dialog-title">{dialogTitle}</DialogTitle>
+                <DialogContent>
+                    {/* <DialogContentText>World</DialogContentText> */}
+                    {children}
+                </DialogContent>
+                <DialogActions sx={{marginRight:"14px",marginBottom:"14px"}}>
+                    <MuiButton type="cancel-btn" onClick={onClose}>Cancel</MuiButton>
+                    <MuiButton type="submit">Submit</MuiButton>
+                </DialogActions>
+
+            </Dialog>
+        </>
+    );
+}
 export default MuiDialog;
