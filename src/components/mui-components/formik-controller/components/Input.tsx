@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { TextField } from '@mui/material';
-import { Field, ErrorMessage } from 'formik';
+import { Field, ErrorMessage, FastField } from 'formik';
 
 /** Input
  * Mui TextField component
@@ -25,6 +25,9 @@ const Input = ({ name, label, errors, touched, disabled, required, onChange, ful
       fullWidth={fullWidth}
       disabled={disabled}
       required={required}
+      // InputProps={{
+      //   disableUnderline: true,
+      // }}
       // onChange={onChange}
       autoComplete="off"
       variant="standard"

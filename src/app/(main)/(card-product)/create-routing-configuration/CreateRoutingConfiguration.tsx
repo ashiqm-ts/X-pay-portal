@@ -3,13 +3,12 @@ import Header from '@/components/ui/Header';
 import { Box, Button } from '@mui/material';
 import RoutingFields from './components/RoutingFields';
 import { FieldArray, Form, Formik } from 'formik';
+import MuiButton from '@/components/mui-components/button/MuiButton';
+import RoutingGrid from './components/RoutingGrid';
 
-export default function CreateCardProduct() {
+export default function CreateRoutingConfiguration() {
   const initialValues = {
-    routingConfig: [
-      { productCode: '', destination: '', stepOrder: '', externalSystemCode: '', targetModule: '', declineOnFailure: false, isOptional: false },
-      { productCode: '', destination: '', stepOrder: '', externalSystemCode: '', targetModule: '', declineOnFailure: false, isOptional: false },
-    ],
+    routingConfig: [{ productCode: '', destination: '', stepOrder: '', externalSystemCode: '', targetModule: '', declineOnFailure: false, isOptional: false }],
   };
 
   const handleSubmit = (values: any) => {
@@ -26,10 +25,8 @@ export default function CreateCardProduct() {
                 <CustomCard>
                   <Box mb={2} className="flex justify-between items-center ">
                     <Header name="Create Routing Configuration" />
-                    <Button
-                      type="button"
-                      variant="contained"
-                      color="primary"
+                    <MuiButton
+                      type="basic-btn"
                       onClick={() =>
                         push({
                           productCode: '',
@@ -43,7 +40,7 @@ export default function CreateCardProduct() {
                       }
                     >
                       Add
-                    </Button>
+                    </MuiButton>
                   </Box>
 
                   <RoutingFields form={form} remove={remove} />

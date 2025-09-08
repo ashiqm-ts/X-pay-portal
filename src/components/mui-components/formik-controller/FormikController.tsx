@@ -25,7 +25,7 @@ const FormikController = (props: { [x: string]: any; control: any }) => {
         </DropDown>
       );
     case 'switch':
-      return <MuiSwitch name={name} label={label} required={required} onChange={onChange} disabled={disabled}   />;
+      return <MuiSwitch name={name} label={label} required={required} onChange={onChange} disabled={disabled} />;
 
     case 'autoComplete':
       return <MuiAutoComplete name={name} label={label} optionsList={optionsList} required={required} onChange={onChange} disabled={disabled} errors={errors} touched={touched} />;

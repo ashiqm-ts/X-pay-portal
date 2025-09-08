@@ -1,7 +1,7 @@
-import { Grid } from '@mui/material';
+import { Grid, GridProps } from '@mui/material';
 import { ReactNode } from 'react';
 
-type GridItemProps = {
+type GridItemProps = GridProps & {
   children: ReactNode;
   xs?: number;
   sm?: number;
@@ -10,9 +10,10 @@ type GridItemProps = {
   xl?: number;
 };
 
-const GridItem: React.FC<GridItemProps> = ({ children, xs , sm, md, lg, xl, ...rest }) => {
+const GridItem: React.FC<GridItemProps> = ({ children, ...rest }) => {
+  const { xs, sm, md, lg, xl, ...other } = rest;
   return (
-    <Grid size={{ xs: xs, sm: sm, md: md, lg: lg }} {...rest}>
+    <Grid size={{ xs: xs, sm: sm, md: md, lg: lg, xl: xl }}  {...other}>
       {children}
     </Grid>
   );

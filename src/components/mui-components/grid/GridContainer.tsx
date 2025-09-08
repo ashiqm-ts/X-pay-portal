@@ -1,9 +1,8 @@
-import { Grid } from '@mui/material';
+import { Grid, GridProps } from '@mui/material';
 import { ReactNode } from 'react';
 
-type GridContainerProps = {
+type GridContainerProps = GridProps & {
   children: ReactNode;
-  spacing?: number;
 };
 
 const GridContainer: React.FC<GridContainerProps> = ({ children, spacing = 2, ...rest }) => {

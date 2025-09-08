@@ -1,0 +1,4 @@
+const jwtServiceConfig = {
+    
+};
+export { jwtServiceConfig };

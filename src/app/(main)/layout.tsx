@@ -10,13 +10,14 @@ const scrollBarCustomStyle = {
   '::-webkit-scrollbar': {
     width: '5px',
     height: '5px',
-    backgroundColor: '#E6F1EB',
+    backgroundColor: '#f3f6f4',
   },
   '::-webkit-scrollbar-thumb': {
-    backgroundColor: '#2A4947',
+    backgroundColor: '#b0c4c0',
+    borderRadius: '8px',
   },
   '::-webkit-scrollbar-thumb:hover': {
-    backgroundColor: '#5D8983',
+    backgroundColor: '#8aa6a0',
   },
 };
 

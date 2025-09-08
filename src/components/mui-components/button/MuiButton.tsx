@@ -9,7 +9,7 @@ const MuiButton = (props: any) => {
   switch (type) {
     case 'basic-btn':
       return (
-        <BasicBtn disabled={disabled} className={className} variant={variant} size={size} sx={sx} component={component}>
+        <BasicBtn disabled={disabled} className={className} variant={variant} size={size} sx={sx} component={component} onClick={onClick}>
           {children}
         </BasicBtn>
       );
