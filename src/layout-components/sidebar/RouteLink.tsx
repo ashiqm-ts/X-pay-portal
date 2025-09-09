@@ -1,6 +1,6 @@
-import CreditCardIcon from "@mui/icons-material/CreditCard";
-import AddCardIcon from "@mui/icons-material/AddCard";
-import PreviewIcon from "@mui/icons-material/Preview";
+import CreditCardIcon from '@mui/icons-material/CreditCard';
+import AddCardIcon from '@mui/icons-material/AddCard';
+import PreviewIcon from '@mui/icons-material/Preview';
 
 type LinkProps = {
   children?: { name: string; to: string; icon: React.ReactNode }[] | [];
@@ -12,62 +12,51 @@ type LinkProps = {
 
 export const Links: LinkProps = [
   {
-    label: "Dashboard",
+    label: 'Dashboard',
     icon: <CreditCardIcon />,
-    to: "/dashboard",
+    to: '/dashboard',
   },
   {
-    label: "Routing Configuration",
+    label: 'Routing Confiuration',
     icon: <CreditCardIcon />,
-    to: "/card-product",
+    to: '/routing-configuration',
+  },
+  // {
+  //   label: 'Routing Configuration',
+  //   icon: <CreditCardIcon />,
+  //   to: '/card-product',
+  //   children: [
+  //     {
+  //       name: 'Create Routing Configuration',
+  //       to: '/create-routing-configuration',
+  //       icon: <AddCardIcon />,
+  //     },
+  //     {
+  //       name: 'View Routing Configuration',
+  //       to: '/view-routing-configuration',
+  //       icon: <PreviewIcon />,
+  //     },
+  //   ],
+  // },
+
+  {
+    label: 'User Role Management',
+    icon: <CreditCardIcon />,
+    to: '/user-role-management',
     children: [
       {
-        name: "Create Routing Configuration",
-        to: "/create-routing-configuration",
+        name: 'Users',
+        to: '/user-role-management/users',
         icon: <AddCardIcon />,
       },
       {
-        name: "View Routing Configuration",
-        to: "/view-routing-configuration",
-        icon: <PreviewIcon />,
-      },
-    ],
-  },
-  {
-    label: "Routing timer Configuration",
-    icon: <CreditCardIcon />,
-    to: "/card-product",
-    children: [
-      {
-        name: "Create Routing timer Configuration",
-        to: "/card-product/create-card-product",
-        icon: <AddCardIcon />,
-      },
-      {
-        name: "View Routing timer Configuration",
-        to: "/card-product/view-card-products",
-        icon: <PreviewIcon />,
-      },
-    ],
-  },
-  {
-    label: "User Role Management",
-    icon: <CreditCardIcon />,
-    to: "/user-role-management",
-    children: [
-      {
-        name: "Users",
-        to: "/user-role-management/users",
-        icon: <AddCardIcon />,
-      },
-      {
-        name: "Roles",
-        to: "/user-role-management/roles",
+        name: 'Roles',
+        to: '/user-role-management/roles',
         icon: <PreviewIcon />,
       },
       {
-        name: "User Group",
-        to: "/user-role-management/user-group",
+        name: 'User Group',
+        to: '/user-role-management/user-group',
         icon: <PreviewIcon />,
       },
     ],

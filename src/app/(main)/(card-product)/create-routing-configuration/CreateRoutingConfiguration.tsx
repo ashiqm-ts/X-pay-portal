@@ -4,7 +4,6 @@ import { Box, Button } from '@mui/material';
 import RoutingFields from './components/RoutingFields';
 import { FieldArray, Form, Formik } from 'formik';
 import MuiButton from '@/components/mui-components/button/MuiButton';
-import RoutingGrid from './components/RoutingGrid';
 
 export default function CreateRoutingConfiguration() {
   const initialValues = {

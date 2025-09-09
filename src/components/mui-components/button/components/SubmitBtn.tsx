@@ -23,7 +23,7 @@ const SubmitBtn: React.FC<SubmitBtnProps> = ({
   size = 'small',
   variant = 'contained',
   sx,
-  className = 'normal-case !bg-[var(--color-secondary)] !text-white hover:!bg-[var(--color-accent)] hover:!text-[var(--color-primary)] !disabled:bg-[var(--color-accent)]',
+  className = '!normal-case !bg-[var(--color-secondary)] !text-white hover:!bg-[var(--color-accent)] hover:!text-[var(--color-primary)] !disabled:bg-[var(--color-accent)]',
   typeSubmit,
 }) => {
   const [isDisabled, setIsDisabled] = useState(false);
@@ -53,7 +53,7 @@ const SubmitBtn: React.FC<SubmitBtnProps> = ({
     };
   }, [isSubmitting, dirty, isNoDirty, disabled, disableIsSubmit, typeSubmit, values]);
   return (
-    <Button variant={variant} size={size} type="submit" disabled={isDisabled} disableElevation disableRipple className={className}>
+    <Button variant={variant} size={size} type="submit" sx={sx} disabled={isDisabled} disableElevation disableRipple className={className}>
       {children}
     </Button>
   );

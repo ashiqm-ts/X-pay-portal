@@ -10,3 +10,6 @@ const CreateRoutingConfiguration = dynamic(() => import('./CreateRoutingConfigur
 export default function CreateRoutingConfigurationPage() {
   return <CreateRoutingConfiguration />;
 }
+
+
+// unused page
