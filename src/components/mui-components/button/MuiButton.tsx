@@ -2,6 +2,7 @@ import BasicCancelBtn from "@/components/mui-components/button/components/BasicC
 import IconBtn from "@/components/mui-components/button/components/IconBtn";
 import SubmitBtn from "@/components/mui-components/button/components/SubmitBtn";
 import BasicBtn from "@/components/mui-components/button/components/BasicBtn";
+import GridBtn from "@/components/mui-components/button/components/GridBtn";
 
 const MuiButton = (props: any) => {
   const { type, onClick, disabled, children, className, variant, size, isNoDirty, disableIsSubmit, sx, component } = props;
@@ -24,6 +25,12 @@ const MuiButton = (props: any) => {
         <BasicCancelBtn onClick={onClick} disabled={disabled} className={className} variant={variant} size={size}>
           {children}
         </BasicCancelBtn>
+      );
+     case 'grid-btn':
+      return (
+        <GridBtn onClick={onClick} disabled={disabled} className={className} variant={variant} size={size}>
+          {children}
+        </GridBtn>
       );
     case 'icon-btn':
         return(
