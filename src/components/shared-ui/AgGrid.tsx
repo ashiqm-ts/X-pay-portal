@@ -84,7 +84,7 @@ const AgGrid: React.FC<any> = (props) => {
                 {leftActionButton ?? <div/>}
             <div className="flex justify-end text-right gap-2">
                 <span className="text-[#538890] text-[14px]">Quick Search</span>
-                <input type="text" placeholder="Search...." id="filter-text-box" onInput={onFilterTextChanged}
+                <input type="text" placeholder="Search...." id="filter-text-box" onInput={onFilterTextChanged} style={{ paddingLeft: '4px' }}
                     className="border border-[var(--color-secondary)] text-[14px] focus:outline-none focus:border-[var(--color-secondary)] hover:border-[var(--color-secondary)]" />
             </div>
             </div>
