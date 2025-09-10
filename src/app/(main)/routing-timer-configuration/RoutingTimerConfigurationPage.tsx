@@ -6,17 +6,13 @@ import CustomCard from '@/components/shared-ui/CustomCard';
 import CustomGrid from '@/components/shared-ui/CustomGrid';
 import MuiDialog from '@/components/shared-ui/MuiDialog';
 import Header from '@/components/ui/Header';
-import { createTransactionRoute, getTransactionRoutes } from '@/config/apiConfig';
+import { createTransactionRoute } from '@/config/apiConfig';
 import { useDialog } from '@/provider/DialogProvider';
 import { Box } from '@mui/material';
 import { Form, Formik } from 'formik';
-import * as Yup from 'yup';
-import React, { useEffect, useState } from 'react';
-import { useAuth } from '@/provider/AuthProvider';
+import React, { useState } from 'react';
 
-const RoutingConfigurationPage = () => {
-  const { user } = useAuth();
-  console.log(user);
+const RoutingTimerConfigurationPage = () => {
   const [rowData, setRowData] = useState([]);
   const [pageControl, setPageControl] = useState({ isOpen: false });
   const { handleResponse } = useDialog();
@@ -102,19 +98,16 @@ const RoutingConfigurationPage = () => {
   };
   const handleSubmit = async (values: any) => {
     console.log(values);
-    const data = [
-      {
-        institutionId: user?.institutionId,
-        productCode: values.productCode,
-        destination: values.destination,
-        stepOrder: values.stepOrder,
-        externalSystemCode: values.externalSystemCode,
-        targetModule: values.targetModule,
-        declineOnFailure: values.declineOnFailure,
-        isOptional: values.isOptional,
-      },
-    ];
-
+    const data = {
+      institutionId: 101,
+      productCode: values.productCode,
+      destination: values.destination,
+      stepOrder: values.stepOrder,
+      externalSystemCode: values.externalSystemCode,
+      targetModule: values.targetModule,
+      declineOnFailure: values.declineOnFailure,
+      isOptional: values.isOptional,
+    };
     const res = await createTransactionRoute(data);
     if (res.data.responseCode === 0) {
       handleResponse(res.data.data.message, false);
@@ -132,31 +125,10 @@ const RoutingConfigurationPage = () => {
     isOptional: false,
     declineOnFailure: false,
   };
-
-  const validationSchema = Yup.object().shape({
-    productCode: Yup.string().required('Required'),
-    destination: Yup.string().required('Required'),
-    stepOrder: Yup.string().required('Required'),
-    externalSystemCode: Yup.string().required('Required'),
-    targetModule: Yup.string().required('Required'),
-  });
-
-  const getAllRouteTrans = async () => {
-    const data = { institutionId: user?.institutionId };
-    const res = await getTransactionRoutes(data);
-    if (res.data.responseCode === 0) {
-      setRowData(res.data.data);
-    } else {
-      handleResponse(res.data.errors[0].message, true);
-    }
-  };
-  // useEffect(() => {
-  //   getAllRouteTrans();
-  // }, []);
   return (
     <Box>
       <CustomCard>
-        <Header name="Routing Configuration " />
+        <Header name="Routing Timer Configuration " />
         <CustomGrid
           rowData={rowData}
           columnDefs={columnDefs}
@@ -165,7 +137,7 @@ const RoutingConfigurationPage = () => {
             label: 'Create',
           }}
         />
-        <Formik initialValues={initialValues} enableReinitialize validationSchema={validationSchema} onSubmit={handleSubmit}>
+        <Formik initialValues={initialValues} enableReinitialize onSubmit={handleSubmit}>
           {({ resetForm, dirty }) => (
             <MuiDialog width={700} open={pageControl?.isOpen} dialogTitle={dialogTitle} onClose={() => setPageControl((prev) => ({ ...prev, isOpen: false }))}>
               <GridContainer>
@@ -192,4 +164,4 @@ const RoutingConfigurationPage = () => {
     </Box>
   );
 };
-export default RoutingConfigurationPage;
+export default RoutingTimerConfigurationPage;

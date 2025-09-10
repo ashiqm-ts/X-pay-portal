@@ -11,7 +11,7 @@ type DialogContextType = {
   error: boolean;
   loader: boolean;
   responseMsg: string | null;
-  handleResponse: (showDialog: boolean, message: string, isError: boolean) => void;
+  handleResponse: (message: string, isError: boolean) => void;
   handleLoader: (isLoading: boolean) => void;
 };
 
@@ -23,8 +23,8 @@ const DialogProvider: React.FC<ChildrenProps> = ({ children }) => {
   const [error, setError] = useState(false);
   const [loader, setLoader] = useState(false);
 
-  const handleResponse = (showDialog: boolean, message: string, isError: boolean) => {
-    setDialog(showDialog);
+  const handleResponse = (message: string, isError: boolean) => {
+    setDialog(!!message);
     setResponseMsg(message);
     setError(isError);
   };

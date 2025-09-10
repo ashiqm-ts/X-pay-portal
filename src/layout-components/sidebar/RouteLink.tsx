@@ -21,6 +21,11 @@ export const Links: LinkProps = [
     icon: <CreditCardIcon />,
     to: '/routing-configuration',
   },
+   {
+    label: 'Routing Timer Confiuration',
+    icon: <CreditCardIcon />,
+    to: '/routing-timer-configuration',
+  },
   // {
   //   label: 'Routing Configuration',
   //   icon: <CreditCardIcon />,

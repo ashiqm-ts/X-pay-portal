@@ -7,11 +7,12 @@ import Draggable, { DraggableEventHandler } from 'react-draggable';
 import { useRef, useState } from 'react';
 import MuiButton from '@/components/mui-components/button/MuiButton';
 import { Typography } from '@mui/material';
+import { Form, useFormikContext } from 'formik';
 
 type DialogType = {
   open: boolean;
   onClose: () => void;
-  width: string;
+  width?: string | number;
   children: React.ReactNode;
   dialogTitle?: string;
 };
@@ -31,11 +32,17 @@ function PaperComponent(props: PaperProps) {
 }
 
 const MuiDialog: React.FC<DialogType> = ({ open, onClose, width, children, dialogTitle }) => {
+  const { resetForm } = useFormikContext<any>();
+  const handleCancel = () => {
+    resetForm();
+    onClose();
+  };
+
   return (
     <>
       <Dialog
         open={open}
-        onClose={onClose}
+        onClose={handleCancel}
         PaperComponent={PaperComponent}
         sx={{
           '& .MuiDialog-container': {
@@ -50,18 +57,19 @@ const MuiDialog: React.FC<DialogType> = ({ open, onClose, width, children, dialo
         }}
       >
         <DialogTitle sx={{ cursor: 'pointer' }} id="draggable-dialog-title">
-          <Typography fontSize={16} fontWeight={600} mt={1}>
-            {' '}
+          <Typography fontSize={18} fontWeight={600} mt={1}>
             {dialogTitle}
           </Typography>
         </DialogTitle>
-        <DialogContent>{children}</DialogContent>
-        <DialogActions sx={{ margin: '10px' }}>
-          <MuiButton type="cancel-btn" onClick={onClose}>
-            Cancel
-          </MuiButton>
-          <MuiButton type="submit">Submit</MuiButton>
-        </DialogActions>
+        <Form noValidate>
+          <DialogContent>{children}</DialogContent>
+          <DialogActions sx={{ margin: '10px' }}>
+            <MuiButton type="cancel-btn" onClick={handleCancel}>
+              Cancel
+            </MuiButton>
+            <MuiButton type="submit">Submit</MuiButton>
+          </DialogActions>
+        </Form>
       </Dialog>
     </>
   );

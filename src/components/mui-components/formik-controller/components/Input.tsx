@@ -31,7 +31,7 @@ const Input = ({ name, label, errors, touched, disabled, required, onChange, ful
       // onChange={onChange}
       autoComplete="off"
       variant="standard"
-      InputLabelProps={{ sx: { color: 'var(--color-secondary)',fontSize: '13px' } }}
+      InputLabelProps={{ sx: { color: 'var(--color-secondary)', fontSize: '13px' } }}
       // InputProps={{ sx: { color: '#538890', fontSize: '14px' } }}
       helperText={<ErrorMessage name={name} />}
       error={Boolean(errors[name] && touched[name])}

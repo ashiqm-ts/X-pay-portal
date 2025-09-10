@@ -7,7 +7,7 @@ type HeaderProps = {
 const Header: React.FC<HeaderProps> = ({ name }) => {
   return (
     <Box mb={2}>
-      <Typography    fontWeight="600" sx={{ fontSize: '1.1rem' }}>
+      <Typography fontSize={20} fontWeight={600}>
         {name}
       </Typography>
     </Box>

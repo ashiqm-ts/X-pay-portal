@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { IconButton, InputAdornment, TextField } from "@mui/material";
-import { Field, ErrorMessage } from "formik";
+import { IconButton, InputAdornment, TextField } from '@mui/material';
+import { Field, ErrorMessage } from 'formik';
 // import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 // import LockOpenOutlinedIcon from '@mui/icons-material/LockOpenOutlined';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -16,25 +16,9 @@ type MuiAutoCompleteProps = {
   fullWidth?: boolean;
   required?: boolean;
   showPassword?: boolean;
-  setShowPassword?: (name?: boolean|undefined) => void;
+  setShowPassword?: (name?: boolean | undefined) => void;
 };
-const Password = ({
-  name,
-  label,
-  errors,
-  touched,
-  disabled,
-  required,
-  onChange,
-  fullWidth = true,
-  showPassword,
-  setShowPassword,
-  ...rest
-}: MuiAutoCompleteProps) => {
-  
-  console.log(rest);
-  console.log(showPassword)
-  console.log(setShowPassword)
+const Password = ({ name, label, errors, touched, disabled, required, onChange, fullWidth = true, showPassword, setShowPassword, ...rest }: MuiAutoCompleteProps) => {
   return (
     <Field
       as={TextField}
@@ -48,13 +32,13 @@ const Password = ({
       type="text"
       helperText={<ErrorMessage name={name} />}
       error={Boolean(errors[name] && touched[name])}
-      InputLabelProps={{sx: {color: 'var(--color-secondary)',} }}
-      inputProps={{ style: { WebkitTextSecurity: showPassword ? "none" : "disc" } }}
+      InputLabelProps={{ sx: { color: 'var(--color-secondary)' } }}
+      inputProps={{ style: { WebkitTextSecurity: showPassword ? 'none' : 'disc' } }}
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">
             <IconButton onClick={() => setShowPassword?.(!showPassword)} edge="end">
-              {showPassword ? <VisibilityIcon sx={{ color: 'var(--color-secondary)' }}/> : <VisibilityOffIcon sx={{ color: 'var(--color-secondary)' }}/>}
+              {showPassword ? <VisibilityIcon sx={{ color: 'var(--color-secondary)' }} /> : <VisibilityOffIcon sx={{ color: 'var(--color-secondary)' }} />}
             </IconButton>
           </InputAdornment>
         ),

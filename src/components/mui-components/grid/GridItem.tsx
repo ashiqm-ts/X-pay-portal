@@ -2,7 +2,7 @@ import { Grid, GridProps } from '@mui/material';
 import { ReactNode } from 'react';
 
 type GridItemProps = GridProps & {
-  children: ReactNode;
+  children?: ReactNode;
   xs?: number;
   sm?: number;
   md?: number;

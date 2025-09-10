@@ -31,7 +31,7 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
         pendingRequests = Math.max(0, pendingRequests - 1);
         if (pendingRequests === 0) handleLoader(false);
         console.log('Session expired. Redirecting to login..."', error);
-        handleResponse(true, 'Service is currently unavailable. Please try again later', true);
+        handleResponse('Service is currently unavailable. Please try again later', true);
 
         if (error.response?.status === 401) {
           console.log('Session expired. Redirecting to login..."');

@@ -32,86 +32,57 @@ const DEFAULT_COLUMNS: Column[] = [
 const DEFAULT_COLUMN_WIDTH = 160;
 const DEFAULT_ROW_HEIGHT = 50;
 
-const GridRow = memo(
-  ({
-    row,
-    rowIndex,
-    columns,
-    columnWidth,
-    remove,
-  }: {
-    row: any;
-    rowIndex: number;
-    columns: Column[];
-    columnWidth: number;
-    remove: (index: number) => void;
-  }) => {
-    return (
-      <Box
-        sx={{
-          display: 'flex',
-          borderBottom: '1px solid #e5e7eb',
-          backgroundColor: rowIndex % 2 === 0 ? '#ffffff' : '#f9fafb',
-          '&:hover': { backgroundColor: '#f1f5f9' },
-          alignItems: 'center',
-          minHeight: DEFAULT_ROW_HEIGHT,
-        }}
-      >
-        {columns.map((col) => (
-          <Box
-            key={col.field}
-            sx={{
-              flex: `0 0 ${columnWidth}px`,
-              px: 3,
-              display: 'flex',
-              alignItems: 'center',
-              borderRight: '1px solid #e5e7eb',
-              textAlign: col.type === 'action' ? 'center' : 'left',
-            }}
-          >
-            {col.type === 'action' ? (
-              <IconButton
-                color="error"
-                onClick={() => remove(rowIndex)}
-                size="small"
-                aria-label="remove row"
-                sx={{ padding: 0.5 }}
-              >
-                <CloseIcon fontSize="small" />
-              </IconButton>
-            ) : (
-              <FormikController control={col.type} name={`routingConfig[${rowIndex}].${col.field}`} />
-            )}
-          </Box>
-        ))}
-      </Box>
-    );
-  }
-);
+const GridRow = memo(({ row, rowIndex, columns, columnWidth, remove }: { row: any; rowIndex: number; columns: Column[]; columnWidth: number; remove: (index: number) => void }) => {
+  return (
+    <Box
+      sx={{
+        display: 'flex',
+        borderBottom: '1px solid #e5e7eb',
+        backgroundColor: rowIndex % 2 === 0 ? '#ffffff' : '#f9fafb',
+        '&:hover': { backgroundColor: '#f1f5f9' },
+        alignItems: 'center',
+        minHeight: DEFAULT_ROW_HEIGHT,
+      }}
+    >
+      {columns.map((col) => (
+        <Box
+          key={col.field}
+          sx={{
+            flex: `0 0 ${columnWidth}px`,
+            px: 3,
+            display: 'flex',
+            alignItems: 'center',
+            borderRight: '1px solid #e5e7eb',
+            textAlign: col.type === 'action' ? 'center' : 'left',
+          }}
+        >
+          {col.type === 'action' ? (
+            <IconButton color="error" onClick={() => remove(rowIndex)} size="small" aria-label="remove row" sx={{ padding: 0.5 }}>
+              <CloseIcon fontSize="small" />
+            </IconButton>
+          ) : (
+            <FormikController control={col.type} name={`routingConfig[${rowIndex}].${col.field}`} />
+          )}
+        </Box>
+      ))}
+    </Box>
+  );
+});
 
-const RoutingGrid: React.FC<RoutingGridProps> = ({
-  form,
-  remove,
-  columns = DEFAULT_COLUMNS,
-  columnWidth = DEFAULT_COLUMN_WIDTH,
-  pageSize = 10,
-}) => {
+const RoutingGrid: React.FC<RoutingGridProps> = ({ form, remove, columns = DEFAULT_COLUMNS, columnWidth = DEFAULT_COLUMN_WIDTH, pageSize = 10 }) => {
   const theme = useTheme();
   const rows = form?.values?.routingConfig || [];
   const rowCount = rows.length;
 
-  // pagination state
   const [page, setPage] = useState(1);
   const totalPages = Math.ceil(rowCount / pageSize) || 1;
 
-  // 👇 Adjust page automatically if row count shrinks
   useEffect(() => {
     if (page > totalPages) {
       setPage(totalPages);
     }
   }, [rowCount, totalPages, page]);
 
-  // slice rows for current page
   const startIndex = (page - 1) * pageSize;
   const currentRows = rows.slice(startIndex, startIndex + pageSize);
 
@@ -127,10 +98,8 @@ const RoutingGrid: React.FC<RoutingGridProps> = ({
         boxShadow: '0 2px 6px rgba(0,0,0,0.05)',
       }}
     >
-      {/* Scrollable content */}
       <Box sx={{ flex: 1, overflow: 'auto' }}>
         <Box sx={{ minWidth: columns.length * columnWidth, display: 'flex', flexDirection: 'column' }}>
-          {/* Header */}
           <Box
             sx={{
               display: 'flex',
@@ -163,27 +132,16 @@ const RoutingGrid: React.FC<RoutingGridProps> = ({
             ))}
           </Box>
 
-          {/* Rows */}
           {currentRows.length > 0 ? (
             currentRows.map((row: any, rowIndex: number) => (
-              <GridRow
-                key={startIndex + rowIndex}
-                row={row}
-                rowIndex={startIndex + rowIndex}
-                columns={columns}
-                columnWidth={columnWidth}
-                remove={remove}
-              />
+              <GridRow key={startIndex + rowIndex} row={row} rowIndex={startIndex + rowIndex} columns={columns} columnWidth={columnWidth} remove={remove} />
             ))
           ) : (
-            <Box sx={{ textAlign: 'center', py: 2, color: '#9ca3af', fontStyle: 'italic', fontSize: 14 }}>
-              No routing configuration added.
-            </Box>
+            <Box sx={{ textAlign: 'center', py: 2, color: '#9ca3af', fontStyle: 'italic', fontSize: 14 }}>No routing configuration added.</Box>
           )}
         </Box>
       </Box>
 
-      {/* Footer with pagination */}
       <Box
         sx={{
           display: 'flex',
@@ -198,28 +156,17 @@ const RoutingGrid: React.FC<RoutingGridProps> = ({
         }}
       >
         <span>
-          Showing {rowCount > 0 ? startIndex + 1 : 0}–
-          {Math.min(startIndex + pageSize, rowCount)} of {rowCount}
+          Showing {rowCount > 0 ? startIndex + 1 : 0}–{Math.min(startIndex + pageSize, rowCount)} of {rowCount}
         </span>
 
         <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
-          <Button
-            size="small"
-            variant="outlined"
-            disabled={page === 1}
-            onClick={() => setPage((p) => p - 1)}
-          >
+          <Button size="small" variant="outlined" disabled={page === 1} onClick={() => setPage((p) => p - 1)}>
             Prev
           </Button>
           <span>
             Page {page} of {totalPages}
           </span>
-          <Button
-            size="small"
-            variant="outlined"
-            disabled={page === totalPages}
-            onClick={() => setPage((p) => p + 1)}
-          >
+          <Button size="small" variant="outlined" disabled={page === totalPages} onClick={() => setPage((p) => p + 1)}>
             Next
           </Button>
         </Box>
