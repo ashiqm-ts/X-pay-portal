@@ -9,7 +9,7 @@ const BasicBtn = ({
   component,
   startIcon,
   onClick,
-  className = '!normal-case !bg-[var(--color-primary)] !text-white hover:!bg-[var(--color-accent)] hover:!text-[var(--color-primary)] !disabled:bg-[var(--color-accent)]',
+  className = '!normal-case !bg-[var(--color-primary)] !text-white hover:!bg-[var(--color-accent)] hover:!text-[var(--color-primary)] disabled:!bg-gray-300 disabled:!text-gray-500',
   ...rest
 }: any) => {
   return (

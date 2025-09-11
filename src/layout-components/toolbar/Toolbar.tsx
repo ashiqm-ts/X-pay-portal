@@ -1,15 +1,14 @@
 'use client';
-import { logoutAction } from '@/app/actions/auth';
 import { AppBar, Box, IconButton, Toolbar, Typography } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
 import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
 import Pill from '@/layout-components/toolbar/Pill';
 import Notification from '@/layout-components/toolbar/Notification';
+import { redirect } from "next/navigation";
 
 export default function ToolBar() {
   const handleLogout = () => {
-    // router.push("/sign-in");
-    logoutAction();
+   redirect("/sign-in");
   };
 
   return (
@@ -19,7 +18,7 @@ export default function ToolBar() {
         <Box className="flex justify-end items-center">
           {/* <Pill /> */}
           <IconButton disableRipple>
-            <Notification/>
+            <Notification />
             {/* <NotificationsOutlinedIcon sx={{ color: 'var(--color-primary)', width: '30px', height: '30px' }} /> */}
           </IconButton>
           <IconButton disableRipple onClick={handleLogout}>

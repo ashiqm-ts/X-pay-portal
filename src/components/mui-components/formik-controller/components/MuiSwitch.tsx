@@ -17,7 +17,7 @@ const MuiSwitch: React.FC<MuiSwitchProps> = ({ name, label, disabled, required, 
   return (
     <Box mt={2}>
       <Box display="flex" alignItems="center" justifyContent="space-between">
-        <Typography fontSize={15} fontWeight={500}  >
+        <Typography variant="subtitle2" fontWeight={500} color="text.primary">
           {label}
           {required ? ' *' : ''}
         </Typography>

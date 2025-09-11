@@ -23,7 +23,7 @@ const SubmitBtn: React.FC<SubmitBtnProps> = ({
   size = 'small',
   variant = 'contained',
   sx,
-  className = '!normal-case !bg-[var(--color-secondary)] !text-white hover:!bg-[var(--color-accent)] hover:!text-[var(--color-primary)] !disabled:bg-[var(--color-accent)]',
+  className = '!normal-case !bg-[var(--color-primary)] !text-white hover:!bg-[var(--color-accent)] hover:!text-[var(--color-primary)] disabled:!bg-gray-300 disabled:!text-gray-500',
   typeSubmit,
 }) => {
   const [isDisabled, setIsDisabled] = useState(false);

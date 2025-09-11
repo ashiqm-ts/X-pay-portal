@@ -1,5 +1,6 @@
 @import 'tailwindcss';
-
+@import 'ag-grid-community/styles/ag-grid.css';
+@import 'ag-grid-community/styles/ag-theme-balham.css';
 * {
   padding: 0;
   margin: 0;
@@ -9,12 +10,12 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --color-primary: #2A4947;
+  --color-primary: #2a4947;
   --color-secondary: #538890;
-  --color-accent: #E6f1EB;
-  --color-accent1:#BEDACB;
-  --color-yellow:#A89C34;
-  --color-red:#dd8452;
+  --color-accent: #e6f1eb;
+  --color-accent1: #bedacb;
+  --color-yellow: #a89c34;
+  --color-red: #dd8452;
 }
 /* @theme{
   --color-primary: #2A4947;
@@ -42,19 +43,33 @@ body {
 }
 
 .custom-header-center .ag-header-cell-label {
+  display: flex;
   justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
-.ag-cell {
-  font-family: inherit;
-  font-size: 13px;
+.ag-theme-balham .ag-header-cell {
+  font-family: 'Roboto', sans-serif;
+  color: black;
+  background-color: var(--color-accent);
 }
-
-.ag-row {
-    border-bottom: 1px solid #9BBCC1; /*  desired border */
+.ag-theme-balham .ag-cell {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
 }
-
-.ag-paging-panel {
-  color: var( --color-secondary);
-  font-weight:400;
+.ag-theme-balham .ag-paging-panel {
+  min-height: 35px;
+  font-size: 14px;
+}
+.ag-theme-balham .ag-status-bar {
+  min-height: 50px;
+  padding: 8px 12px;
+}
+.ag-theme-balham .ag-row {
+  border-bottom: 1px solid #9bbcc1 !important;
+}
+.ag-theme-balham .ag-root-wrapper {
+  border-radius: 8px;
+  overflow: hidden;
 }

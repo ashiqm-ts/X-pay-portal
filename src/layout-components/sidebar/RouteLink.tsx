@@ -1,6 +1,11 @@
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 import AddCardIcon from '@mui/icons-material/AddCard';
 import PreviewIcon from '@mui/icons-material/Preview';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
+import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
+import GroupAddIcon from '@mui/icons-material/GroupAdd';
 
 type LinkProps = {
   children?: { name: string; to: string; icon: React.ReactNode }[] | [];
@@ -13,19 +18,60 @@ type LinkProps = {
 export const Links: LinkProps = [
   {
     label: 'Dashboard',
-    icon: <CreditCardIcon />,
+    icon: <DashboardIcon />,
     to: '/dashboard',
   },
   {
-    label: 'Routing Confiuration',
+    label: 'Routing',
     icon: <CreditCardIcon />,
-    to: '/routing-configuration',
+    to: '/routing',
+    children: [
+      {
+        name: 'Routing Configuration',
+        to: '/routing/routing-configuration',
+        icon: <AddCardIcon />,
+      },
+      {
+        name: 'Routing Timer Configuration',
+        to: '/routing/routing-timer-configuration',
+        icon: <PreviewIcon />,
+      },
+      {
+        name: 'Source Confiuration',
+        to: '/routing/source-configuration',
+        icon: <PreviewIcon />,
+      },
+      {
+        name: 'Destination Configuration',
+        to: '/routing/destination-configuration',
+        icon: <PreviewIcon />,
+      },
+      {
+        name: 'Issuer Configuration',
+        to: '/routing/issuer-configuration',
+        icon: <PreviewIcon />,
+      },
+    ],
   },
-   {
-    label: 'Routing Timer Confiuration',
+  {
+    label: 'Routing Engine',
     icon: <CreditCardIcon />,
-    to: '/routing-timer-configuration',
+    to: '/routing-engine',
+    children: [
+      {
+        name: 'BIN',
+        to: '/routing-engine/bin',
+        icon: <AddCardIcon />,
+      },
+      {
+        name: 'Institution Priority',
+        to: '/routing-engine/institution-priority',
+        icon: <PreviewIcon />,
+      },
+       
+    ],
   },
+
   // {
   //   label: 'Routing Configuration',
   //   icon: <CreditCardIcon />,
@@ -46,23 +92,23 @@ export const Links: LinkProps = [
 
   {
     label: 'User Role Management',
-    icon: <CreditCardIcon />,
+    icon: <ManageAccountsIcon />,
     to: '/user-role-management',
     children: [
       {
         name: 'Users',
         to: '/user-role-management/users',
-        icon: <AddCardIcon />,
+        icon: <PersonAddAltIcon />,
       },
       {
         name: 'Roles',
         to: '/user-role-management/roles',
-        icon: <PreviewIcon />,
+        icon: <SupervisedUserCircleIcon />,
       },
       {
         name: 'User Group',
         to: '/user-role-management/user-group',
-        icon: <PreviewIcon />,
+        icon: <GroupAddIcon />,
       },
     ],
   },

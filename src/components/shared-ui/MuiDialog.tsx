@@ -49,9 +49,19 @@ const MuiDialog: React.FC<DialogType> = ({ open, onClose, width, children, dialo
             '& .MuiPaper-root': {
               width: '100%',
               maxWidth: width,
-              minWidth: '500px',
-              borderRadius: '15px',
-              zIndex: '1',
+              minWidth: width,
+              borderRadius: '10px',
+              '@media (max-width:600px)': {
+                width: '75%',
+                minWidth: '75%',
+              },
+              '@media (max-width:960px)': {
+                width: '75%',
+                minWidth: '75%',
+              },
+              '@media (min-width:960px)': {
+                width: '500px',
+              },
             },
           },
         }}
@@ -62,7 +72,16 @@ const MuiDialog: React.FC<DialogType> = ({ open, onClose, width, children, dialo
           </Typography>
         </DialogTitle>
         <Form noValidate>
-          <DialogContent>{children}</DialogContent>
+          <DialogContent
+            sx={{
+              maxHeight: '400px',
+              overflow: 'auto',
+              marginLeft: '4px',
+              paddingTop: '0px',
+            }}
+          >
+            {children}
+          </DialogContent>
           <DialogActions sx={{ margin: '10px' }}>
             <MuiButton type="cancel-btn" onClick={handleCancel}>
               Cancel
