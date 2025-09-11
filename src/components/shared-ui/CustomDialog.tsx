@@ -11,7 +11,7 @@ const CustomDialog = () => {
   const { responseMsg, dialog, error, handleResponse } = useDialog();
 
   const handleClose = () => {
-    handleResponse(false, '', false);
+    handleResponse('', false);
   };
 
   return (
