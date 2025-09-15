@@ -10,6 +10,7 @@ import MuiDialog from "@/components/shared-ui/MuiDialog";
 import { Formik } from "formik";
 import FormikController from "@/components/mui-components/formik-controller/FormikController";
 import MuiButton from "@/components/mui-components/button/MuiButton";
+import GroupAddIcon from '@mui/icons-material/GroupAdd';
 
 const ActionRenderer = (params: ICellRendererParams & { onEdit: (data: any) => void; onDelete: (data: any) => void }) => {
   const { data, onEdit, onDelete } = params;
@@ -131,7 +132,8 @@ export default function UserPage() {
         <AgGrid1 rowData={rowData} columnDefs={columnDefs} 
         actionButton={{
             handleActionButton: handleAdd,
-            label:'Add'
+            label:'Add',
+            icon: <GroupAddIcon sx={{ fontSize: "20px", paddingRight: "4px" }} />
           }}
           // leftActionButton={
           // <MuiButton type="basic-btn" onClick={handleAdd}>Add</MuiButton>}

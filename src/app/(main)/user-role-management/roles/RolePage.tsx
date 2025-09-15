@@ -10,6 +10,8 @@ import MuiDialog from "@/components/shared-ui/MuiDialog";
 import { Formik } from "formik";
 import FormikController from "@/components/mui-components/formik-controller/FormikController";
 import MuiButton from "@/components/mui-components/button/MuiButton";
+import RolePermission from "@/app/(main)/user-role-management/roles/RolePermission";
+import RolePermission1 from "@/app/(main)/user-role-management/roles/RolePermission1";
 
 const ActionRenderer = (params: ICellRendererParams & { onEdit: (data: any) => void; onDelete: (data: any) => void }) => {
   const { data, onEdit, onDelete } = params;
@@ -122,7 +124,7 @@ export default function UserPage() {
         <AgGrid1 rowData={rowData} columnDefs={columnDefs} 
         actionButton={{
             handleActionButton: handleAdd,
-            label:'Add'
+            label:'Add Role'
           }}
           // leftActionButton={
           // <MuiButton type="basic-btn" onClick={handleAdd}>Add</MuiButton>}
@@ -135,13 +137,13 @@ export default function UserPage() {
               open={pageControl.isOpen}
               onClose={() => setPageControl(prev => ({ ...prev, isOpen: false }))}
               width="700px"
-              dialogTitle={pageControl.isEdit ? "Edit User" : "Add User"}
+              dialogTitle={pageControl.isEdit ? "Edit Role" : "Add Role"}
               >   
               <Grid container spacing={3} justifyContent="center">
                 <Grid size={{ xs: 6 }}>
                   <FormikController
                     control="textField"
-                    label="User Name"
+                    label="Name"
                     name="userName"
                     required
                   />
@@ -149,62 +151,16 @@ export default function UserPage() {
                 <Grid size={{ xs: 6 }}>
                   <FormikController
                     control="textField"
-                    label="User Name"
-                    name="userName"
-                    required
-                  />
-                </Grid>
-                <Grid size={{ xs: 6 }}>
-                  <FormikController
-                    control="textField"
-                    label="User Name"
-                    name="userName"
-                    required
-                  />
-                </Grid>
-                <Grid size={{ xs: 6 }}>
-                  <FormikController
-                    control="textField"
-                    label="User Name"
-                    name="userName"
-                    required
-                  />
-                </Grid>
-                <Grid size={{ xs: 6 }}>
-                  <FormikController
-                    control="textField"
-                    label="User Name"
-                    name="userName"
-                    required
-                  />
-                </Grid>
-                <Grid size={{ xs: 6 }}>
-                  <FormikController
-                    control="textField"
-                    label="User Name"
-                    name="userName"
-                    required
-                  />
-                </Grid>
-                <Grid size={{ xs: 6 }}>
-                  <FormikController
-                    control="textField"
-                    label="User Name"
-                    name="userName"
-                    required
-                  />
-                </Grid>
-                <Grid size={{ xs: 6 }}>
-                  <FormikController
-                    control="textField"
-                    label="User Name"
-                    name="userName"
-                    required
+                    label="Description"
+                    name="description"
                   />
                 </Grid>
               </Grid>
+              <RolePermission/>
+              {/* <RolePermission1/> */}
             </MuiDialog>
           </Formik>
+
         </>
       )}
     </Box>

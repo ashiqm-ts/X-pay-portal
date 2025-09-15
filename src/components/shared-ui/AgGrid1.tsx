@@ -123,7 +123,8 @@ const AgGrid1: React.FC<any> = (props) => {
         <Grid size={{ xs: 1 }}>
           {actionButton && actionButton?.label && (
             <MuiButton type="basic-btn" className={actionButton.className} onClick={actionButton?.handleActionButton}>
-              <GroupAddIcon sx={{ fontSize: "20px", paddingRight: "4px" }} />
+              {/* <GroupAddIcon sx={{ fontSize: "20px", paddingRight: "4px" }} /> */}
+              {actionButton?.icon && actionButton.icon}
               {actionButton?.label}
             </MuiButton>
           )}
