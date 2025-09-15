@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useAuth } from '@/provider/AuthProvider';
+import MuiButton from '@/components/mui-components/button/MuiButton';
 
 export default function SignInPage() {
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -70,17 +71,15 @@ export default function SignInPage() {
               </Grid>
               <Grid size={{ xs: 11, sm: 7, md: 9, lg: 9 }}>
                 <Link href="/forgot-password">
-                  <Typography sx={{ textAlign: 'right', fontSize: '15px', cursor: 'pointer', color: 'var(--color-yellow)', fontFamily: 'sans-serif' }}>Forgot Password?</Typography>
+                  <Typography fontSize={15} className="text-right   cursor-pointer text-[var(--color-yellow)] font-sans">
+                    Forgot Password?
+                  </Typography>
                 </Link>
               </Grid>
               <Grid size={{ xs: 11, md: 9, lg: 9 }} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mt: 2 }}>
-                <Button
-                  type="submit"
-                  variant="outlined"
-                  sx={{ textTransform: 'none', borderRadius: '15px', color: '#2A4947', fontWeight: 'bold', fontFamily: 'sans-serif', backgroundColor: '#F5F8FF' }}
-                >
+                <MuiButton type="submit" variant="outlined" className="!normal-case !rounded-[15px] !p-1  !text-[#2A4947] !font-bold !font-sans !bg-[#F5F8FF]">
                   Login
-                </Button>
+                </MuiButton>
               </Grid>
             </Grid>
           </Form>

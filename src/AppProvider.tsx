@@ -10,7 +10,6 @@ import { AuthProvider } from './provider/AuthProvider';
 import DialogProvider from './provider/DialogProvider';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import theme from './lib/theme';
 import ProtectedRoute from './config/ProtectedRoute';
 
 const AppProviders = ({ children }: { children: React.ReactNode }) => {

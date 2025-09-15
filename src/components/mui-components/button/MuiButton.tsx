@@ -9,7 +9,7 @@ const MuiButton = (props: any) => {
   switch (type) {
     case 'submit':
       return (
-        <SubmitBtn disabled={disabled} className={className} variant={variant} size={size} disableIsSubmit={disableIsSubmit} sx={sx} component={component}>
+        <SubmitBtn disabled={disabled} className={className} variant={variant} size={size} disableIsSubmit={disableIsSubmit} sx={sx} component={component} isNoDirty={isNoDirty}>
           {children}
         </SubmitBtn>
       );

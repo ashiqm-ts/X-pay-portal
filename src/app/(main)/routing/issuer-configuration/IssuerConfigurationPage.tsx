@@ -6,93 +6,119 @@ import CustomCard from '@/components/shared-ui/CustomCard';
 import CustomGrid from '@/components/shared-ui/CustomGrid';
 import MuiDialog from '@/components/shared-ui/MuiDialog';
 import Header from '@/components/ui/Header';
-import { createTransactionRoute, getTransactionRoutes } from '@/config/apiConfig';
+import { createIssuerConfig, getAllIssuerConfigs, searchIssuerConfig } from '@/config/apiConfig';
 import { useDialog } from '@/provider/DialogProvider';
 import { Box } from '@mui/material';
 import { Form, Formik } from 'formik';
-import * as Yup from 'yup';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import SearchFieldBox from '@/components/ui/SearchFieldBox';
 import { useAuth } from '@/provider/AuthProvider';
+import PageTitles from '@/helper-function/pageTitles';
 
-const RoutingConfigurationPage = () => {
-  const { user } = useAuth();
-  console.log(user);
+const IssuerConfigurationPage = () => {
   const [rowData, setRowData] = useState([]);
+  const { user } = useAuth();
   const [pageControl, setPageControl] = useState({ isOpen: false });
   const { handleResponse } = useDialog();
-  const dialogTitle = 'Create Routing Configuration';
+  const dialogTitle = 'Create Issuer Configuration';
 
   const columnDefs = [
     {
-      field: 'productCode',
-      headerName: 'Product Code',
+      field: 'issuerId',
+      headerName: 'Issuer ID',
     },
     {
-      field: 'destination',
-      headerName: 'Destination',
+      field: 'issuerName',
+      headerName: 'Issuer Name',
     },
     {
-      field: 'stepOrder',
-      headerName: 'Step Order',
+      field: 'isInternal',
+      headerName: 'Is Internal',
+    },
+
+    {
+      field: 'bankCode',
+      headerName: 'Bank Code',
     },
     {
-      field: 'externalSystemCode',
-      headerName: 'External System Code',
+      field: 'bankEmail',
+      headerName: 'Bank Email',
+    },
+
+    {
+      field: 'bankPhone',
+      headerName: 'Bank Phone No',
     },
     {
-      field: 'targetModule',
-      headerName: 'Target Module',
+      field: 'bankAddress',
+      headerName: 'Bank Address',
+    },
+
+    {
+      field: 'settlementCurrency',
+      headerName: 'Settlement Currency',
     },
     {
-      field: 'declineOnFailure',
-      headerName: 'Decline On Failure',
+      field: 'status',
+      headerName: 'Status',
     },
     {
-      field: 'isOptional',
-      headerName: 'Is Optional',
+      field: 'createdAt',
+      headerName: 'Created DateTime',
+    },
+    {
+      field: 'updatedAt',
+      headerName: 'Modified DateTime',
     },
   ];
   const CreateFormFields = [
     {
       control: 'textField',
-      label: 'Product Code',
-      name: 'productCode',
+      label: 'Issuer Name',
+      name: 'issuerName',
       required: true,
     },
     {
       control: 'textField',
-      label: 'Destination',
-      name: 'destination',
+      label: 'Bank Code',
+      name: 'bankCode',
       required: true,
     },
     {
       control: 'textField',
-      label: 'Step Order',
-      name: 'stepOrder',
+      label: 'Bank Email',
+      name: 'bankEmail',
       required: true,
     },
     {
       control: 'textField',
-      label: 'External System Code',
-      name: 'externalSystemCode',
+      label: 'Bank Phone',
+      name: 'bankPhone',
       required: true,
     },
     {
       control: 'textField',
-      label: 'Target Module',
-      name: 'targetModule',
+      label: 'Bank Address',
+      name: 'bankAddress',
       required: true,
+    },
+    {
+      control: 'textField',
+      label: 'Settlement Currency',
+      name: 'settlementCurrency',
+      required: true,
+    },
+
+    {
+      control: 'switch',
+      label: 'Status',
+      name: 'status',
+      required: false,
     },
     {
       control: 'switch',
-      label: 'Decline On Failure',
-      name: 'declineOnFailure',
-      required: true,
-    },
-    {
-      control: 'switch',
-      label: 'Is Optional',
-      name: 'isOptional',
+      label: 'Is Internal',
+      name: 'isInternal',
       required: false,
     },
   ];
@@ -102,20 +128,17 @@ const RoutingConfigurationPage = () => {
   };
   const handleSubmit = async (values: any) => {
     console.log(values);
-    const data = [
-      {
-        institutionId: user?.institutionId,
-        productCode: values.productCode,
-        destination: values.destination,
-        stepOrder: values.stepOrder,
-        externalSystemCode: values.externalSystemCode,
-        targetModule: values.targetModule,
-        declineOnFailure: values.declineOnFailure,
-        isOptional: values.isOptional,
-      },
-    ];
-
-    const res = await createTransactionRoute(data);
+    const data = {
+      issuerName: values.issuerName,
+      isInternal: values.isInternal,
+      bankCode: values.bankCode,
+      bankEmail: values.bankEmail,
+      bankPhone: values.bankPhone,
+      bankAddress: values.bankAddress,
+      settlementCurrency: values.settlementCurrency,
+      status: values.status,
+    };
+    const res = await createIssuerConfig(data);
     if (res.data.responseCode === 0) {
       handleResponse(res.data.data.message, false);
     } else {
@@ -133,17 +156,48 @@ const RoutingConfigurationPage = () => {
     declineOnFailure: false,
   };
 
-  const validationSchema = Yup.object().shape({
-    productCode: Yup.string().required('Required'),
-    destination: Yup.string().required('Required'),
-    stepOrder: Yup.string().required('Required'),
-    externalSystemCode: Yup.string().required('Required'),
-    targetModule: Yup.string().required('Required'),
-  });
+  const SearchFormFields = [
+    {
+      control: 'textField',
+      label: 'Issuer Name',
+      name: 'issuerName',
+      required: true,
+    },
+    {
+      control: 'textField',
+      label: 'Bank Code',
+      name: 'bankCode',
+      required: true,
+    },
+    {
+      control: 'textField',
+      label: 'Bank Email',
+      name: 'bankEmail',
+      required: true,
+    },
+  ];
 
-  const getAllRouteTrans = async () => {
+  const handleSearch = async (values: any) => {
+    console.log(values);
+    const data = {
+      issuerId: values.issuerId,
+      issuerName: values.issuerName,
+      bankCode: values.bankCode,
+      bankEmail: values.bankEmail,
+    };
+
+    const res = await searchIssuerConfig(data);
+    if (res.data.responseCode === 0) {
+      setRowData(res.data.data);
+    } else {
+      handleResponse(res.data.errors[0].message, true);
+    }
+    setPageControl((prev) => ({ ...prev, isOpen: false }));
+  };
+
+  const getAllGridDetails = async () => {
     const data = { institutionId: user?.institutionId };
-    const res = await getTransactionRoutes(data);
+    const res = await getAllIssuerConfigs(data);
     if (res.data.responseCode === 0) {
       setRowData(res.data.data);
     } else {
@@ -151,12 +205,15 @@ const RoutingConfigurationPage = () => {
     }
   };
   // useEffect(() => {
-  //   getAllRouteTrans();
+  //   getAllGridDetails();
   // }, []);
   return (
     <Box>
       <CustomCard>
-        <Header name="Routing Configuration " />
+        <Header name={PageTitles.issuerConfig} />
+        <Box mb={4}>
+          <SearchFieldBox SearchFormFields={SearchFormFields} handleSubmit={handleSearch} />
+        </Box>
         <CustomGrid
           rowData={rowData}
           columnDefs={columnDefs}
@@ -165,7 +222,7 @@ const RoutingConfigurationPage = () => {
             label: 'Create',
           }}
         />
-        <Formik initialValues={initialValues} enableReinitialize validationSchema={validationSchema} onSubmit={handleSubmit}>
+        <Formik initialValues={initialValues} enableReinitialize onSubmit={handleSubmit}>
           {({ resetForm, dirty }) => (
             <MuiDialog width={700} open={pageControl?.isOpen} dialogTitle={dialogTitle} onClose={() => setPageControl((prev) => ({ ...prev, isOpen: false }))}>
               <GridContainer>
@@ -192,4 +249,4 @@ const RoutingConfigurationPage = () => {
     </Box>
   );
 };
-export default RoutingConfigurationPage;
+export default IssuerConfigurationPage;

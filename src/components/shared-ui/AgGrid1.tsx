@@ -103,7 +103,7 @@ const AgGrid1: React.FC<any> = (props) => {
     };
   }, []);
   return (
-    <Box style={containerStyle}>
+    <Box style={containerStyle} className="ag-theme-balham">
 
       {/* <Box mb={2} className="flex items-center gap-2">
         {actionButton && actionButton?.label && (
@@ -159,7 +159,7 @@ const AgGrid1: React.FC<any> = (props) => {
           pagination={pagination}
           paginationPageSize={paginationPageSize}
           paginationPageSizeSelector={paginationPageSizeSelector}
-          theme={agGridTheme}
+          // theme={agGridTheme}
           rowHeight={35}
           headerHeight={40}
           onFilterChanged={onFilterChanged}

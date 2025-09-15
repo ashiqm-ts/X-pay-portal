@@ -62,7 +62,7 @@ export default function Sidebar() {
                         {item.children?.map(
                           (child) =>
                             child.to && (
-                              <ListItemButton key={child.to} component={Link} href={child.to} selected={pathname === child.to} sx={{ ...activeItemStyle, ml: 2 }}>
+                              <ListItemButton key={child.to} component={Link} href={child.to} selected={pathname === child.to} sx={{ ...activeItemStyle, ml: 2,pl:3 }}>
                                 <ListItemIcon
                                   sx={{
                                     color: 'inherit',

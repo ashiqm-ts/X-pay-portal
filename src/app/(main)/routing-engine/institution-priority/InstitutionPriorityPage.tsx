@@ -6,17 +6,22 @@ import CustomCard from '@/components/shared-ui/CustomCard';
 import CustomGrid from '@/components/shared-ui/CustomGrid';
 import MuiDialog from '@/components/shared-ui/MuiDialog';
 import Header from '@/components/ui/Header';
-import { createTransactionRoute } from '@/config/apiConfig';
+import { createSourceConfig, getAllSourceConfigs, searchSourceConfig } from '@/config/apiConfig';
 import { useDialog } from '@/provider/DialogProvider';
 import { Box } from '@mui/material';
 import { Form, Formik } from 'formik';
 import React, { useState } from 'react';
+import SearchFieldBox from '@/components/ui/SearchFieldBox';
+import { useAuth } from '@/provider/AuthProvider';
+import PageTitles from '@/helper-function/pageTitles';
 
-const RoutingTimerConfigurationPage = () => {
+const InstitutionPriorityPage = () => {
   const [rowData, setRowData] = useState([]);
+  const { user } = useAuth();
+
   const [pageControl, setPageControl] = useState({ isOpen: false });
   const { handleResponse } = useDialog();
-  const dialogTitle = 'Create Routing Configuration';
+  const dialogTitle = 'Create Routing Timer Configuration';
 
   const columnDefs = [
     {
@@ -24,28 +29,51 @@ const RoutingTimerConfigurationPage = () => {
       headerName: 'Product Code',
     },
     {
+      field: 'source',
+      headerName: 'Source',
+    },
+    {
       field: 'destination',
       headerName: 'Destination',
     },
+
     {
-      field: 'stepOrder',
-      headerName: 'Step Order',
+      field: 'channelType',
+      headerName: 'Channel Type',
     },
+    {
+      field: 'txnType',
+      headerName: 'Transaction Type',
+    },
+
     {
       field: 'externalSystemCode',
       headerName: 'External System Code',
     },
     {
-      field: 'targetModule',
-      headerName: 'Target Module',
+      field: 'timeoutSeconds',
+      headerName: 'Timeout Seconds',
+    },
+
+    {
+      field: 'onTimeoutAction',
+      headerName: 'On Timeout Action',
     },
     {
-      field: 'declineOnFailure',
-      headerName: 'Decline On Failure',
+      field: 'responseCodeOnTimeout',
+      headerName: 'Response Code On Timeout',
     },
     {
-      field: 'isOptional',
-      headerName: 'Is Optional',
+      field: 'isPinBased',
+      headerName: 'Is Pin Based',
+    },
+    {
+      field: 'isActive',
+      headerName: 'Is Active',
+    },
+    {
+      field: 'isOverallTimer',
+      headerName: 'Is Overall Timer',
     },
   ];
   const CreateFormFields = [
@@ -57,14 +85,20 @@ const RoutingTimerConfigurationPage = () => {
     },
     {
       control: 'textField',
+      label: 'Source',
+      name: 'source',
+      required: true,
+    },
+    {
+      control: 'textField',
       label: 'Destination',
       name: 'destination',
       required: true,
     },
     {
       control: 'textField',
-      label: 'Step Order',
-      name: 'stepOrder',
+      label: 'Channel Type',
+      name: 'channelType',
       required: true,
     },
     {
@@ -75,20 +109,44 @@ const RoutingTimerConfigurationPage = () => {
     },
     {
       control: 'textField',
-      label: 'Target Module',
-      name: 'targetModule',
+      label: 'Transaction Type',
+      name: 'txnType',
+      required: true,
+    },
+    {
+      control: 'textField',
+      label: 'Timeout Seconds',
+      name: 'timeoutSeconds',
+      required: true,
+    },
+    {
+      control: 'textField',
+      label: 'On Timeout Action',
+      name: 'onTimeoutAction',
+      required: true,
+    },
+    {
+      control: 'textField',
+      label: 'responseCodeOnTimeout',
+      name: 'responseCodeOnTimeout',
       required: true,
     },
     {
       control: 'switch',
-      label: 'Decline On Failure',
-      name: 'declineOnFailure',
-      required: true,
+      label: 'Is PinBased',
+      name: 'isPinBased',
+      required: false,
     },
     {
       control: 'switch',
-      label: 'Is Optional',
-      name: 'isOptional',
+      label: 'Is Overall Timer',
+      name: 'isOverallTimer',
+      required: false,
+    },
+    {
+      control: 'switch',
+      label: 'Is Active',
+      name: 'isActive',
       required: false,
     },
   ];
@@ -101,14 +159,19 @@ const RoutingTimerConfigurationPage = () => {
     const data = {
       institutionId: 101,
       productCode: values.productCode,
+      source: values.source,
       destination: values.destination,
-      stepOrder: values.stepOrder,
+      channelType: values.channelType,
+      txnType: values.txnType,
+      isPinBased: values.isPinBased,
       externalSystemCode: values.externalSystemCode,
-      targetModule: values.targetModule,
-      declineOnFailure: values.declineOnFailure,
-      isOptional: values.isOptional,
+      timeoutSeconds: values.timeoutSeconds,
+      isOverallTimer: values.isOverallTimer,
+      onTimeoutAction: values.onTimeoutAction,
+      responseCodeOnTimeout: values.responseCodeOnTimeout,
+      isActive: values.isActive,
     };
-    const res = await createTransactionRoute(data);
+    const res = await createSourceConfig(data);
     if (res.data.responseCode === 0) {
       handleResponse(res.data.data.message, false);
     } else {
@@ -125,10 +188,65 @@ const RoutingTimerConfigurationPage = () => {
     isOptional: false,
     declineOnFailure: false,
   };
+
+  const SearchFormFields = [
+    {
+      control: 'textField',
+      label: 'Name',
+      name: 'name',
+      required: true,
+    },
+    {
+      control: 'textField',
+      label: 'AuthMode',
+      name: 'authMode',
+      required: true,
+    },
+    {
+      control: 'textField',
+      label: 'SLA Profile',
+      name: 'slaProfile',
+      required: true,
+    },
+  ];
+
+  const handleSearch = async (values: any) => {
+    console.log(values);
+    const data = {
+      institutionId: user?.institutionId,
+      source: values.source,
+      destination: values.destination,
+      txnType: values.txnType,
+    };
+
+    const res = await searchSourceConfig(data);
+    if (res.data.responseCode === 0) {
+      setRowData(res.data.data);
+    } else {
+      handleResponse(res.data.errors[0].message, true);
+    }
+    setPageControl((prev) => ({ ...prev, isOpen: false }));
+  };
+
+  const getAllSourceDetails = async () => {
+    const data = { institutionId: user?.institutionId };
+    const res = await getAllSourceConfigs(data);
+    if (res.data.responseCode === 0) {
+      setRowData(res.data.data);
+    } else {
+      handleResponse(res.data.errors[0].message, true);
+    }
+  };
+  // useEffect(() => {
+  //   getAllSourceDetails();
+  // }, []);
   return (
     <Box>
       <CustomCard>
-        <Header name="Routing Timer Configuration " />
+        <Header name={PageTitles.instnpriority} />
+        <Box mb={4}>
+          <SearchFieldBox SearchFormFields={SearchFormFields} handleSubmit={handleSearch} />
+        </Box>
         <CustomGrid
           rowData={rowData}
           columnDefs={columnDefs}
@@ -164,4 +282,4 @@ const RoutingTimerConfigurationPage = () => {
     </Box>
   );
 };
-export default RoutingTimerConfigurationPage;
+export default InstitutionPriorityPage;
