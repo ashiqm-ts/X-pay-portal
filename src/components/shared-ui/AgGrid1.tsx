@@ -104,20 +104,6 @@ const AgGrid1: React.FC<any> = (props) => {
   }, []);
   return (
     <Box style={containerStyle} className="ag-theme-balham">
-
-      {/* <Box mb={2} className="flex items-center gap-2">
-        {actionButton && actionButton?.label && (
-          <MuiButton type="basic-btn" className={actionButton.className} onClick={actionButton?.handleActionButton}>
-            <GroupAddIcon sx={{ fontSize: "20px", paddingRight: "4px" }} />
-            {actionButton?.label}
-          </MuiButton>
-        )}
-        <Box px={1} py={0.5} className="flex items-center gap-2 border border-[var(--color-secondary)] rounded-md  bg-[var(--color-accent)] focus-within:ring-1 focus-within:ring-[var(--color-secondary)]">
-          <Search size={16} className="text-[var(--color-secondary)]" />
-          <input id="filter-text-box" type="text" placeholder="Search" onInput={onFilterTextChanged} className="text-sm focus:outline-none w-40" />
-        </Box> 
-      </Box> */}
-
     <Formik initialValues={{search:""}} onSubmit={()=>{}}>
       <Grid container justifyContent="flex-start" alignItems="center" >
         <Grid size={{ xs: 1 }}>
@@ -159,15 +145,13 @@ const AgGrid1: React.FC<any> = (props) => {
           pagination={pagination}
           paginationPageSize={paginationPageSize}
           paginationPageSizeSelector={paginationPageSizeSelector}
-          // theme={agGridTheme}
+          theme="legacy"
           rowHeight={35}
           headerHeight={40}
           onFilterChanged={onFilterChanged}
-          //  domLayout={hasRow ? "autoHeight": "normal"}
           domLayout="autoHeight"
           overlayNoRowsTemplate="No Rows To Show"
           suppressDragLeaveHidesColumns
-          // onGridReady={onGridReady}
           suppressSizeToFit
           autoSizeStrategy={autoSizeStrategy}
           onFirstDataRendered={handleFirstDataRendered}

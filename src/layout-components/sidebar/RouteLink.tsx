@@ -68,7 +68,24 @@ export const Links: LinkProps = [
         to: '/routing-engine/institution-priority',
         icon: <PreviewIcon />,
       },
+      {
+        name: 'Routing Override Rule',
+        to: '/routing-engine/routing-override-rule',
+        icon: <PreviewIcon />,
+      },
        
+    ],
+  },
+  {
+    label:'Switch Engine',
+    icon: <CreditCardIcon />,
+    to: '/switch-engine',
+    children: [
+      {
+        name: 'Adapter Configuration',
+        to: '/switch-engine/adapter-configuration',
+        icon: <AddCardIcon />,
+      },
     ],
   },
 

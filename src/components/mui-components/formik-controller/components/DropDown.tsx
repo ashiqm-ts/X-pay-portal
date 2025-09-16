@@ -30,6 +30,7 @@ const DropDown = ({
     <Field
       as={TextField}
       name={name}
+      label={label}
       fullWidth
       required={required}
       select
@@ -37,6 +38,7 @@ const DropDown = ({
       disabled
       autoComplete="off"
       variant="standard"
+      InputLabelProps={{ sx: { color: 'var(--color-secondary)', fontSize: '13px' } }}
       helperText={<ErrorMessage name={name} />}
       error={Boolean(errors[name] && touched[name])}
     >

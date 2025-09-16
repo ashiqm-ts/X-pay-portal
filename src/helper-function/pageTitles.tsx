@@ -7,6 +7,8 @@ const PageTitles = {
   issuerConfig: 'Issuer Configuration',
   binConfig: 'BIN',
   instnpriority: 'Institution Priority',
+  routingOverrideRule:'Routing Override Rule',
+  adapterConfig:'Adapter Configuration',
 };
 
 export default PageTitles;

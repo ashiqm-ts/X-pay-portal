@@ -14,6 +14,7 @@ import React, { useState } from 'react';
 import SearchFieldBox from '@/components/ui/SearchFieldBox';
 import { useAuth } from '@/provider/AuthProvider';
 import PageTitles from '@/helper-function/pageTitles';
+import axios from 'axios';
 
 const BinConfigurationPage = () => {
   const [rowData, setRowData] = useState([]);
@@ -177,6 +178,7 @@ const BinConfigurationPage = () => {
       responseCodeOnTimeout: values.responseCodeOnTimeout,
       isActive: values.isActive,
     };
+    //  const res=await axios.post("http://localhost:9091/xpay/routing-engine/bin-master/create",data);
     const res = await createSourceConfig(data);
     if (res.data.responseCode === 0) {
       handleResponse(res.data.data.message, false);
