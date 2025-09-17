@@ -5,7 +5,8 @@ import Footer from '@/layout-components/Footer';
 import Sidebar from '@/layout-components/sidebar/Sidebar';
 import ToolBar from '@/layout-components/toolbar/Toolbar';
 import { Box, GlobalStyles } from '@mui/material';
-
+import NavigationLoader from '@/components/shared-ui/NavigationLoader';
+import { NavigationProvider } from '@/provider/NavigationContext';
 const scrollBarCustomStyle = {
   '::-webkit-scrollbar': {
     width: '5px',
@@ -23,22 +24,25 @@ const scrollBarCustomStyle = {
 
 export default function WithSidebarLayout({ children }: { children: React.ReactNode }) {
   return (
-    <Box className="w-screen h-screen overflow-hidden">
-      <GlobalStyles styles={scrollBarCustomStyle} />
-      <Box className="flex w-full h-full">
-        <Box className="w-[190px] shrink-0 bg-white  ">
-          <Sidebar />
-        </Box>
-        <Box className="flex flex-col flex-1 h-full">
-          <Box className="sticky top-0 z-20">
-            <ToolBar />
+    <NavigationProvider>
+      <Box className="w-screen h-screen overflow-hidden">
+        <GlobalStyles styles={scrollBarCustomStyle} />
+        <NavigationLoader />
+        <Box className="flex w-full h-full">
+          <Box className="w-[190px] shrink-0 bg-white">
+            <Sidebar />
           </Box>
-          <Box className="flex-1 overflow-auto bg-[#538890]">
-            <AppProviders>{children}</AppProviders>
+          <Box className="flex flex-col flex-1 h-full">
+            <Box className="sticky top-0 z-20">
+              <ToolBar />
+            </Box>
+            <Box className="flex-1 overflow-auto bg-[#538890]">
+              <AppProviders>{children}</AppProviders>
+            </Box>
+            <Footer />
           </Box>
-          <Footer />
         </Box>
       </Box>
-    </Box>
+    </NavigationProvider>
   );
 }

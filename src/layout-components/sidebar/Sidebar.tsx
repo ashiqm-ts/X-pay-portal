@@ -7,16 +7,17 @@ import { List, ListItemButton, ListItemIcon, ListItemText, Collapse, Typography,
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import { Links } from '@/layout-components/sidebar/RouteLink';
-
+import { useNavigation } from '@/provider/NavigationContext';
 export default function Sidebar() {
   const pathname = usePathname();
   const [openMenu, setOpenMenu] = useState<string | null>(null);
+  const { startLoading } = useNavigation();
 
-   const handleToggle = useCallback((label: string) => {
+  const handleToggle = useCallback((label: string) => {
     setOpenMenu((prev) => (prev === label ? null : label));
   }, []);
 
-   const activeItemStyle = useMemo(
+  const activeItemStyle = useMemo(
     () => ({
       ml: 1,
       '&:hover': {
@@ -37,11 +38,11 @@ export default function Sidebar() {
 
   return (
     <aside className="left-0 top-0 h-screen bg-white text-[var(--color-secondary)] flex flex-col">
-       <Box className="flex justify-center py-4 shrink-0">
+      <Box className="flex justify-center py-4 shrink-0">
         <img src="/logo.png" alt="logo" width={140} height={64} loading="lazy" style={{ objectFit: 'contain' }} />
       </Box>
 
-       <Box className="flex-1 overflow-y-auto">
+      <Box className="flex-1 overflow-y-auto">
         <List component="nav">
           {Links.map((item) => {
             const hasChildren = Boolean(item.children?.length);
@@ -51,18 +52,31 @@ export default function Sidebar() {
               <Fragment key={item.label}>
                 {hasChildren ? (
                   <>
-                     <ListItemButton onClick={() => handleToggle(item.label)} selected={isChildActive} sx={{ ml: 1 }}>
+                    <ListItemButton onClick={() => handleToggle(item.label)} selected={isChildActive} sx={{ ml: 1 }}>
                       <ListItemIcon sx={{ color: 'inherit', minWidth: 'auto', mr: 1 }}>{item.icon}</ListItemIcon>
                       <ListItemText primary={<Typography fontSize={12}>{item.label}</Typography>} />
                       {openMenu === item.label ? <ExpandLess /> : <ExpandMore />}
                     </ListItemButton>
 
-                     <Collapse in={openMenu === item.label} timeout="auto" unmountOnExit>
+                    <Collapse in={openMenu === item.label} timeout="auto" unmountOnExit>
                       <List component="div" disablePadding>
                         {item.children?.map(
                           (child) =>
                             child.to && (
-                              <ListItemButton key={child.to} component={Link} href={child.to} selected={pathname === child.to} sx={{ ...activeItemStyle, ml: 2,pl:3 }}>
+                              <ListItemButton
+                                key={child.to}
+                                component={Link}
+                                href={child.to}
+                                onClick={(e) => {
+                                  if (pathname === child.to) {
+                                    e.preventDefault();
+                                    return;
+                                  }
+                                  startLoading();
+                                }}
+                                selected={pathname === child.to}
+                                sx={{ ...activeItemStyle, ml: 2, pl: 3, cursor: pathname === child.to ? 'default' : 'pointer' }}
+                              >
                                 <ListItemIcon
                                   sx={{
                                     color: 'inherit',
@@ -80,7 +94,19 @@ export default function Sidebar() {
                     </Collapse>
                   </>
                 ) : (
-                  <ListItemButton component={Link} href={item.to || '#'} selected={pathname === item.to} sx={activeItemStyle}>
+                  <ListItemButton
+                    onClick={(e) => {
+                      if (pathname === item.to) {
+                        e.preventDefault();
+                        return;
+                      }
+                      startLoading();
+                    }}
+                    component={Link}
+                    href={item.to || '#'}
+                    selected={pathname === item.to}
+                    sx={{ ...activeItemStyle, cursor: pathname === item.to ? 'default' : 'pointer' }}
+                  >
                     <ListItemIcon sx={{ color: 'inherit', minWidth: 'auto', mr: 1 }}>{item.icon}</ListItemIcon>
                     <ListItemText primary={<Typography fontSize={12}>{item.label}</Typography>} />
                   </ListItemButton>

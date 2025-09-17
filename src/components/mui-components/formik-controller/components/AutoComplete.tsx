@@ -62,7 +62,7 @@ const MuiAutoComplete: React.FC<MuiAutoCompleteProps> = ({
             }
           }}
           renderOption={(props, option) => (
-            <li {...props} key={option?.value}>
+            <li {...props} key={option?.value}  style={{ fontSize: '13px' }}>
               {option?.label}
             </li>
           )}
@@ -71,15 +71,28 @@ const MuiAutoComplete: React.FC<MuiAutoCompleteProps> = ({
           renderInput={(params: AutocompleteRenderInputParams) => (
             <TextField
               label={label}
-              variant="outlined"
-              InputProps={params.InputProps}
-              InputLabelProps={params.InputLabelProps}
+              variant="standard"
               inputProps={params.inputProps}
               fullWidth
               autoComplete="off"
               required={required}
               disabled={disabled}
               //  onBlur={params.onBlur}
+              slotProps={{
+                inputLabel: {
+                  style: { fontSize: '13px' },
+                  ...params.InputLabelProps,
+                },
+
+                input: {
+                  ...params.InputProps,  
+                },
+              }}
+              sx={{
+                '& .MuiInputBase-input': {
+                  fontSize: '13px',
+                },
+              }}
               helperText={<ErrorMessage name={name} />}
               error={Boolean(errors[name] && touched[name])}
             />
